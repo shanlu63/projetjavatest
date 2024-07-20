@@ -13,5 +13,6 @@ public class Projetjavatest {
     public static void main(String[] args) {
         System.out.println("Hello World!");
         System.out.println("c'est le projet java test par Shan LU et kayiba");
+        System.out.println("c'est le projet java test par Shan LU et kayiba");
     }
 }
