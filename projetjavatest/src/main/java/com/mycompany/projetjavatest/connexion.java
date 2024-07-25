@@ -4,6 +4,9 @@
  */
 package com.mycompany.projetjavatest;
 
+import javax.swing.JOptionPane;
+
+
 /**
  *
  * @author shan
@@ -39,6 +42,11 @@ public class connexion extends javax.swing.JFrame {
         LabelBienvenue.setText("Bienvenue à Bistro S&K");
 
         BoutonConnexion.setText("Se Connecter");
+        BoutonConnexion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BoutonConnexionActionPerformed(evt);
+            }
+        });
 
         labelID.setText("Votre ID: ");
 
@@ -87,6 +95,37 @@ public class connexion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BoutonConnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonConnexionActionPerformed
+        // TODO add your handling code here:
+        //connexion avec le id et le mot de passe
+        String idmanager;
+        String mtpmanager;
+        String idinput;
+        String mtpinput;
+
+        idmanager = "admin";//un id correct
+        mtpmanager = "123456";//un mtp correct
+
+        idinput = jTextFieldid.getText();//get le id 
+        mtpinput = jTextFieldMTP.getText();//get le mot de pass 
+
+        if (idinput.equals(idmanager) && mtpinput.equals(mtpmanager)) {
+            JOptionPane.showMessageDialog(null, "Bienvenue");
+            //go to the page choix de l'interface
+            choixInterface secondPage = new choixInterface();
+            secondPage.setVisible(true);
+
+            // Hide the current window
+            this.setVisible(false);
+        } else {
+            idinput = "";
+            mtpinput = "";
+             JOptionPane.showMessageDialog(this, "ID ou mot de passe incorrect");
+        
+        }
+        
+    }//GEN-LAST:event_BoutonConnexionActionPerformed
 
     /**
      * @param args the command line arguments

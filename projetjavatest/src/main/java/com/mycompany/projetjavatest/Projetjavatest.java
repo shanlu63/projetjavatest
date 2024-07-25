@@ -14,5 +14,11 @@ public class Projetjavatest {
         System.out.println("Hello World!");
         System.out.println("c'est le projet java test par Shan LU et kayiba");
         System.out.println("c'est le projet java test par Shan LU et kayiba");
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new connexion().setVisible(true);
+            }
+        });
+        
     }
 }
