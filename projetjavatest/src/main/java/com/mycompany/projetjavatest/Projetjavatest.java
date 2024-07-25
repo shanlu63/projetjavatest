@@ -8,6 +8,8 @@ import com.mycompany.projetjavatest.view.connexion;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,7 +25,11 @@ public class Projetjavatest {
             public void run() {
                 
                 
-                new connexion().setVisible(true);
+                try {
+                    new connexion().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(Projetjavatest.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         

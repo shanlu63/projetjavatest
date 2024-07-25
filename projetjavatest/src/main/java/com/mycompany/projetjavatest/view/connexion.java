@@ -4,11 +4,14 @@
  */
 package com.mycompany.projetjavatest.view;
 
-
+import com.mycompany.projetjavatest.DAO.BasicDAO;
 import com.mycompany.projetjavatest.domain.Emplois;
-import javax.swing.JOptionPane;
-import java.util.List;
+import com.mycompany.projetjavatest.service.Emploiservice;
+
+import javax.swing.*;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -23,15 +26,39 @@ public class connexion extends javax.swing.JFrame {
      */
     private List<Emplois> employes;//creer une liste de emplois
 
-    public connexion() {
+     public connexion() throws Exception {
         initComponents();
-         // Initialize the list of employes
+        // Initialize the list of employes
         employes = new ArrayList<>();
-        // Add some example employes
-        employes.add(new Emplois(1, "emp001", "123456", "Shan LU", "manager"));
-        employes.add(new Emplois(2, "emp002", "abcdef", "Kayiba", "serveur"));
+        // Add some example employes for test
+        //employes.add(new Emplois(1, "emp001", "123456", "Shan LU", "manager"));
+        //employes.add(new Emplois(2, "emp002", "abcdef", "Kayiba", "serveur"));
         // Add more employes as needed
+        // Save the employes to file when the form is initialized
+        //saveEmployesToFile("emplois.txt");
     }
+     /*
+     private void saveEmployesToFile(String filePath) {
+        List<String> emploisStringList = new ArrayList<>();
+        for (Emplois emploi : employes) {
+            String emploiStr = emploi.getId() + "," +
+                               emploi.getEmpId() + "," +
+                               emploi.getMdp() + "," +
+                               emploi.getNom() + "," +
+                               emploi.getJob();
+            emploisStringList.add(emploiStr);
+        }
+        
+
+        try {
+            BasicDAO<Emplois> basicDAO = new BasicDAO<>();
+            basicDAO.writeToTxt(filePath, emploisStringList);
+            System.out.println("Employés sauvegardés dans le fichier " + filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erreur lors de la sauvegarde des employés", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -116,27 +143,27 @@ public class connexion extends javax.swing.JFrame {
     private void BoutonConnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonConnexionActionPerformed
         // TODO add your handling code here:
         //connexion avec le id et le mot de passe
+        //utilser le method etEmploisbyIDandMDP
+        // Création d'une instance d'Emploisevice pour utiliser ses méthodes
+        Emploiservice emploisevice = new Emploiservice(); // Assurez-vous que le constructeur par défaut est présent dans Emploisevice
+    
+        String idinput = jTextFieldid.getText().trim(); // Saisir ID
+        String mtpinput = jTextFieldMTP.getText().trim(); // Saisir mot de passe
+    
+    
+        Emplois employe = emploisevice.getEmploisbyIDandMDP(idinput, mtpinput);
         
-        String idinput = jTextFieldid.getText(); // Saisisr ID
-        String mtpinput = jTextFieldMTP.getText(); // Saisir de mot de passe
+        // Vérifier si l'emploi a été trouvé
+        if (employe != null) {
+            JOptionPane.showMessageDialog(null, "Bienvenue " + employe.getNom());
+            // Aller à la page choix de l'interface
+            choixInterface secondPage = new choixInterface();
+            secondPage.setVisible(true);
 
-       // Iterate through the list of employes to find a match
-        boolean found = false;
-        for (Emplois employe : employes) {
-            if (idinput.equals(employe.getEmpId()) && mtpinput.equals(employe.getMdp())) {
-                JOptionPane.showMessageDialog(null, "Bienvenue " + employe.getNom());
-                // Go to the page choix de l'interface
-                choixInterface secondPage = new choixInterface();
-                secondPage.setVisible(true);
-
-                // Hide the current window
-                this.setVisible(false);
-                found = true;
-                break;
-            }
-        }
-
-        if (!found) {
+            // Masquer la fenêtre actuelle
+            this.setVisible(false);
+        } else {
+            // Afficher un message d'erreur si l'emploi n'a pas été trouvé
             JOptionPane.showMessageDialog(this, "ID ou mot de passe incorrect");
             jTextFieldid.setText("");
             jTextFieldMTP.setText("");
@@ -172,9 +199,24 @@ public class connexion extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(connexion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
                 new connexion().setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
