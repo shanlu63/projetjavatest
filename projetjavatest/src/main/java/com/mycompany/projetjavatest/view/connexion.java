@@ -2,9 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.projetjavatest;
+package com.mycompany.projetjavatest.view;
 
+
+import com.mycompany.projetjavatest.domain.Emplois;
 import javax.swing.JOptionPane;
+import java.util.List;
+import java.util.ArrayList;
 
 
 /**
@@ -12,12 +16,21 @@ import javax.swing.JOptionPane;
  * @author shan
  */
 public class connexion extends javax.swing.JFrame {
+    
 
     /**
      * Creates new form connexion
      */
+    private List<Emplois> employes;//creer une liste de emplois
+
     public connexion() {
         initComponents();
+         // Initialize the list of employes
+        employes = new ArrayList<>();
+        // Add some example employes
+        employes.add(new Emplois(1, "emp001", "123456", "Shan LU", "manager"));
+        employes.add(new Emplois(2, "emp002", "abcdef", "Kayiba", "serveur"));
+        // Add more employes as needed
     }
 
     /**
@@ -99,30 +112,30 @@ public class connexion extends javax.swing.JFrame {
     private void BoutonConnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonConnexionActionPerformed
         // TODO add your handling code here:
         //connexion avec le id et le mot de passe
-        String idmanager;
-        String mtpmanager;
-        String idinput;
-        String mtpinput;
-
-        idmanager = "admin";//un id correct
-        mtpmanager = "123456";//un mtp correct
-
-        idinput = jTextFieldid.getText();//get le id 
-        mtpinput = jTextFieldMTP.getText();//get le mot de pass 
-
-        if (idinput.equals(idmanager) && mtpinput.equals(mtpmanager)) {
-            JOptionPane.showMessageDialog(null, "Bienvenue");
-            //go to the page choix de l'interface
-            choixInterface secondPage = new choixInterface();
-            secondPage.setVisible(true);
-
-            // Hide the current window
-            this.setVisible(false);
-        } else {
-            idinput = "";
-            mtpinput = "";
-             JOptionPane.showMessageDialog(this, "ID ou mot de passe incorrect");
         
+        String idinput = jTextFieldid.getText(); // Saisisr ID
+        String mtpinput = jTextFieldMTP.getText(); // Saisir de mot de passe
+
+       // Iterate through the list of employes to find a match
+        boolean found = false;
+        for (Emplois employe : employes) {
+            if (idinput.equals(employe.getEmpId()) && mtpinput.equals(employe.getMdp())) {
+                JOptionPane.showMessageDialog(null, "Bienvenue " + employe.getNom());
+                // Go to the page choix de l'interface
+                choixInterface secondPage = new choixInterface();
+                secondPage.setVisible(true);
+
+                // Hide the current window
+                this.setVisible(false);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            JOptionPane.showMessageDialog(this, "ID ou mot de passe incorrect");
+            jTextFieldid.setText("");
+            jTextFieldMTP.setText("");
         }
         
     }//GEN-LAST:event_BoutonConnexionActionPerformed
