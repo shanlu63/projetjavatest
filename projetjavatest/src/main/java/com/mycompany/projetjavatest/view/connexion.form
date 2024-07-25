@@ -100,8 +100,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldid">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Saisir votre id"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldMTP">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Saisir le mot de passe"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

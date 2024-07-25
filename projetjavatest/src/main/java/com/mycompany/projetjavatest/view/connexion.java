@@ -65,6 +65,10 @@ public class connexion extends javax.swing.JFrame {
 
         labelmtp.setText("Mot de passe:");
 
+        jTextFieldid.setText("Saisir votre id");
+
+        jTextFieldMTP.setText("Saisir le mot de passe");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(

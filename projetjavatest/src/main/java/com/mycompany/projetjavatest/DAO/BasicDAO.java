@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.projetjavatest.DAO;
+import com.mycompany.projetjavatest.domain.Emplois;
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 public class BasicDAO<T> {
     
     /**
+     * BasicDAO<T> type parameter
      * Lit toutes les lignes d'un fichier TXT spécifié.
      *
      * @param filePath le chemin du fichier TXT à lire.
