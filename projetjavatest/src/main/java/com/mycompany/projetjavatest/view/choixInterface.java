@@ -37,6 +37,11 @@ public class choixInterface extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
         jButton2.setText("Gestion service");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 24)); // NOI18N
         jLabel1.setText(" Choix de l'interface");
@@ -71,6 +76,13 @@ public class choixInterface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        GestionService1 GestionService1 = new GestionService1();
+        GestionService1.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
