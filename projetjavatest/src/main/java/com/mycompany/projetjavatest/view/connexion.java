@@ -74,7 +74,7 @@ public class connexion extends javax.swing.JFrame {
         labelID = new javax.swing.JLabel();
         labelmtp = new javax.swing.JLabel();
         jTextFieldid = new javax.swing.JTextField();
-        jTextFieldMTP = new javax.swing.JTextField();
+        jPasswordFieldMTP1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,8 +94,6 @@ public class connexion extends javax.swing.JFrame {
 
         jTextFieldid.setText("Saisir votre id");
 
-        jTextFieldMTP.setText("Saisir le mot de passe");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,9 +112,9 @@ public class connexion extends javax.swing.JFrame {
                             .addComponent(labelmtp)
                             .addComponent(labelID))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldid, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldMTP, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldid, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                            .addComponent(jPasswordFieldMTP1))))
                 .addContainerGap(85, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -131,7 +129,7 @@ public class connexion extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelmtp)
-                    .addComponent(jTextFieldMTP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPasswordFieldMTP1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(BoutonConnexion)
                 .addGap(43, 43, 43))
@@ -148,8 +146,10 @@ public class connexion extends javax.swing.JFrame {
         Emploiservice emploisevice = new Emploiservice(); // Assurez-vous que le constructeur par défaut est présent dans Emploisevice
     
         String idinput = jTextFieldid.getText().trim(); // Saisir ID
-        String mtpinput = jTextFieldMTP.getText().trim(); // Saisir mot de passe
+        char[] passwordChars = jPasswordFieldMTP1.getPassword();
+        String mtpinput = new String(passwordChars);// Saisir mot de passe
     
+       
     
         Emplois employe = emploisevice.getEmploisbyIDandMDP(idinput, mtpinput);
         
@@ -166,7 +166,7 @@ public class connexion extends javax.swing.JFrame {
             // Afficher un message d'erreur si l'emploi n'a pas été trouvé
             JOptionPane.showMessageDialog(this, "ID ou mot de passe incorrect");
             jTextFieldid.setText("");
-            jTextFieldMTP.setText("");
+            jPasswordFieldMTP1.setText("");
         }
         
     }//GEN-LAST:event_BoutonConnexionActionPerformed
@@ -224,7 +224,7 @@ public class connexion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BoutonConnexion;
     private javax.swing.JLabel LabelBienvenue;
-    private javax.swing.JTextField jTextFieldMTP;
+    private javax.swing.JPasswordField jPasswordFieldMTP1;
     private javax.swing.JTextField jTextFieldid;
     private javax.swing.JLabel labelID;
     private javax.swing.JLabel labelmtp;

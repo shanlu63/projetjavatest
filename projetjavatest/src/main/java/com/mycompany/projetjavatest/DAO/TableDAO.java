@@ -42,13 +42,31 @@ public class TableDAO extends BasicDAO<Emplois>{
                 String[] parts = line.split(",");
 
                 // Vérifier que la ligne contient le bon nombre de parties
-                if (parts.length == 3) {
+                if (parts.length == 6) {
                     try {
                         int idtable = Integer.parseInt(parts[0].trim());
                         int status = Integer.parseInt(parts[1].trim());
                         int seat = Integer.parseInt(parts[2].trim());
 
-                        // Créer un nouvel objet Table et l'ajouter à la liste
+                        // Si la table n'a pas de réservation, créer l'objet Table sans réservation
+                        if (parts[3].trim().isEmpty() && parts[4].trim().isEmpty() && parts[5].trim().isEmpty()) {
+                            Table table = new Table(idtable, status, seat);
+                            tableList.add(table);
+                        } else {
+                            String orderName = parts[3].trim();
+                            String orderTel = parts[4].trim();
+                            String horaire = parts[5].trim();
+                            Table table = new Table(idtable, status, seat, orderName, orderTel, horaire);
+                            tableList.add(table);
+                        }
+                    } catch (NumberFormatException e) {
+                        System.err.println("Erreur de format de nombre dans le fichier : " + line);
+                    }
+                } else if (parts.length == 3) {
+                    try {
+                        int idtable = Integer.parseInt(parts[0].trim());
+                        int status = Integer.parseInt(parts[1].trim());
+                        int seat = Integer.parseInt(parts[2].trim());
                         Table table = new Table(idtable, status, seat);
                         tableList.add(table);
                     } catch (NumberFormatException e) {
