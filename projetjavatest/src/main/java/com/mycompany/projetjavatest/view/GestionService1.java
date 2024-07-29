@@ -14,11 +14,15 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
@@ -30,6 +34,9 @@ public class GestionService1 extends javax.swing.JFrame {
      // Liste pour stocker les objets Table
     // Liste pour stocker les objets Table
     private List<Table> tableList;
+    public int tableactual ;
+    public int statuactual ;
+    public int placeactual ;
 
     /**
      * Creates new form GestionService1
@@ -43,7 +50,7 @@ public class GestionService1 extends javax.swing.JFrame {
         tableList = tableDAO.initializeTableList();
 
         initComponents();
-       // displayLabels(); // Call the method to display labels
+       // displaytables(); // Call the method to display labels
        jPanelStatusdetable.setVisible(false);//status de table est invisible
          jPanelstatus.setVisible(false);//afficher la panel de reservation
 
@@ -87,13 +94,11 @@ public class GestionService1 extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jButtonValierRDV = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jTextNom = new javax.swing.JTextField();
+        jTextTelephone = new javax.swing.JTextField();
+        jFormattedDate = new javax.swing.JFormattedTextField();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -342,21 +347,23 @@ public class GestionService1 extends javax.swing.JFrame {
 
         jLabel5.setText("Numéro de téléphone ");
 
-        jLabel6.setText("Date");
+        jLabel6.setText("Date et Horaire");
 
-        jLabel7.setText("Horaire");
-
-        jButton1.setText("valiter");
+        jButtonValierRDV.setText("valiterRDV");
+        jButtonValierRDV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonValierRDVActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("annuler RDV");
 
-        jTextField1.setText("jTextField1");
+        jTextNom.setText("nom");
 
-        jTextField2.setText("jTextField1");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jFormattedTextField1.setText("jFormattedTextField1");
+        jFormattedDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(
+            new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("MM/dd/yy-HH:mm"))
+        ));
+        jFormattedDate.setText("MM/dd/yy-HH:mm");
 
         javax.swing.GroupLayout jPanelchoixletempLayout = new javax.swing.GroupLayout(jPanelchoixletemp);
         jPanelchoixletemp.setLayout(jPanelchoixletempLayout);
@@ -367,24 +374,20 @@ public class GestionService1 extends javax.swing.JFrame {
                 .addGroup(jPanelchoixletempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelchoixletempLayout.createSequentialGroup()
                         .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonValierRDV, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelchoixletempLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1))
+                        .addComponent(jTextNom))
                     .addGroup(jPanelchoixletempLayout.createSequentialGroup()
                         .addGroup(jPanelchoixletempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel7))
+                            .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelchoixletempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanelchoixletempLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jFormattedDate)
+                            .addComponent(jTextTelephone))))
                 .addContainerGap())
         );
         jPanelchoixletempLayout.setVerticalGroup(
@@ -393,23 +396,19 @@ public class GestionService1 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelchoixletempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelchoixletempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelchoixletempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelchoixletempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                    .addComponent(jFormattedDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(jPanelchoixletempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(jButtonValierRDV))
                 .addContainerGap())
         );
 
@@ -421,9 +420,9 @@ public class GestionService1 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelstatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabelIDtable)
-                    .addComponent(jPanelchoixletemp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelReservation, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanelReservation, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelchoixletemp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanelstatusLayout.setVerticalGroup(
             jPanelstatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -490,7 +489,7 @@ public class GestionService1 extends javax.swing.JFrame {
         // TODO add your handling code here:
         //affiche la status des table apres cliquer le boutton status de table
          // Affiche le status des tables
-            displayLabels();//afficher les tables dans le panel plan du restarant 
+            displaytables();//afficher les tables dans le panel plan du restarant 
             jPanelStatusdetable.setVisible(true);//status de table est invisible
             jPanelstatus.setVisible(false);//afficher la panel de reservation
           
@@ -515,13 +514,14 @@ public class GestionService1 extends javax.swing.JFrame {
 
     private void jButtonReservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReservationActionPerformed
         // TODO add your handling code here:
-        //fonction pour cliquer le bouton de Reservation
-        displayLabels();//afficher les tables
+        //fonction pour cliquer le bouton de Reservation, affiche les bouton pour choisier les date
+        displaytables();//afficher les tables
         //jPanelReservation.setVisible(true);//afficher la panel de reservation de table
         jPanelstatus.setVisible(true);
         jPanelStatusdetable.setVisible(false);//status de table est invisible
+        jPanelchoixletemp.setVisible(false);
     }//GEN-LAST:event_jButtonReservationActionPerformed
-
+    
     private void jButtonDeconnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeconnexionActionPerformed
         // TODO add your handling code here:
          this.dispose();//fermer l'application
@@ -535,7 +535,40 @@ public class GestionService1 extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButtonDeconnexionActionPerformed
-    private void displayLabels() {
+   //----reservation valiter
+    private void jButtonValierRDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValierRDVActionPerformed
+        // TODO add your handling code here:
+        //get the donnee , date of reservation
+        //Saisir les donnees de RDV
+            // get nom et prenom de RDV
+        // get le nom et telephone de reservaseur 
+        String nomRDV = jTextNom.getText();
+        String teleRDV = jTextTelephone.getText();
+        String dateString = jFormattedDate.getText();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy-HH:mm");
+
+        try {
+            Date date = dateFormat.parse(dateString);
+            if (date != null) {
+                JOptionPane.showMessageDialog(this, "Selected Date and Time: " + dateString);
+                System.out.println(nomRDV + " " + teleRDV + " " + dateString);
+
+                TableDAO tableDAO = new TableDAO("table.txt");
+                boolean updated = tableDAO.updateTable(tableactual, 2, placeactual, nomRDV, teleRDV, dateString);
+
+                if (updated) {
+                    tableList = tableDAO.initializeTableList();
+                    displaytables(); 
+                }
+
+                String RDVmessage = nomRDV + " " + teleRDV + " " + dateString;
+                System.out.println("rdv : " + tableactual + " " + RDVmessage);
+            }
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(this, "Veuillez saisir la date correcte au format  MM/dd/yy-HH：mm");
+        } 
+    }//GEN-LAST:event_jButtonValierRDVActionPerformed
+    private void displaytables() {
         // Définir la disposition de jPanel1 en tant que GridBagLayout
         //
         jPanelPlan.removeAll();
@@ -585,12 +618,16 @@ public class GestionService1 extends javax.swing.JFrame {
             label.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
+                    //mise en jour les donnes actuel
+                       tableactual = table.getIdtable();
+                       statuactual = table.getStatus() ;
+                       placeactual = table.getSeat();
                     // Check if jPanelStatusdetable is visible
                     if (jPanelStatusdetable.isVisible()) {
                         // Call the method to display details in panelStatusPourChequeTable
                         showDetailsInPanel(table); // afficher les details des que clic un table 
                     }
-                    if(jPanelReservation.isVisible()){
+                    else if(jPanelReservation.isVisible()){
                         reservation(table);//  afficher les status des que clic un table 
                     }
                 }
@@ -651,6 +688,9 @@ public class GestionService1 extends javax.swing.JFrame {
             // Add the JLabel to the center of jPanelReservation
             jPanelReservation.add(jLabelStatus, BorderLayout.CENTER);
              jPanelchoixletemp.setVisible(true);
+             
+             
+             
             
         }else{
             JLabel jLabelStatus = new JLabel(table.getStatusText(), SwingConstants.CENTER);
@@ -705,7 +745,6 @@ public class GestionService1 extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonAddtion;
     private javax.swing.JButton jButtonCommender;
@@ -713,15 +752,14 @@ public class GestionService1 extends javax.swing.JFrame {
     private javax.swing.JButton jButtonQuitter;
     private javax.swing.JButton jButtonReservation;
     private javax.swing.JButton jButtonStatus;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JButton jButtonValierRDV;
+    private javax.swing.JFormattedTextField jFormattedDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelIDtable;
     private javax.swing.JLabel jLabelMenu;
     private javax.swing.JLabel jLabelPlandurestarant;
@@ -737,7 +775,7 @@ public class GestionService1 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelStatusdetable;
     private javax.swing.JPanel jPanelchoixletemp;
     private javax.swing.JPanel jPanelstatus;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextNom;
+    private javax.swing.JTextField jTextTelephone;
     // End of variables declaration//GEN-END:variables
 }

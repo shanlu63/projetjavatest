@@ -4,6 +4,8 @@
  */
 package com.mycompany.projetjavatest.domain;
 
+import java.text.SimpleDateFormat;
+
 /**
  * Représente une table avec un identifiant unique, un statut, un nombre de sièges,
  * et des informations de réservation.
@@ -16,7 +18,10 @@ public class Table {
     private String orderName; // Nom du réservateur
     private String orderTel;  // Téléphone du réservateur
     private String horaire;   // Horaire de réservation, format mm/hh/jj-mm-yy
-
+    
+    //constructuer initialize
+    public Table(){
+    }
     /**
      * Constructeur pour les tables avec réservation.
      */
@@ -28,7 +33,8 @@ public class Table {
         this.orderTel = orderTel;
         this.horaire = horaire;
     }
-
+   
+   
     /**
      * Constructeur pour les tables sans réservation.
      * @param idtable
@@ -39,9 +45,9 @@ public class Table {
         this.idtable = idtable;
         this.status = status;
         this.seat = seat;
-        this.orderName = "";
-        this.orderTel = "";
-        this.horaire = "";
+        this.orderName = null;
+        this.orderTel = null;
+        this.horaire = null;
     }
 
     // Getters et Setters
@@ -136,4 +142,23 @@ public class Table {
     
         return detail;
     }
+
+     //set resrevation
+    public void setReservationDetails(String orderName, String orderTel, String horaire) {
+        this.status = 2;
+        this.orderName = orderName;
+        this.orderTel = orderTel;
+        this.horaire = horaire;
+    }
+
+    /**
+     * Convertit la table en une chaîne CSV.
+     *
+     * @return une chaîne CSV en format txt représentant la table
+     */
+     // Method to convert table to CSV string dans le table.txt
+    public String toCSVString() {
+        return idtable + "," + status + "," + seat + "," + orderName + "," + orderTel + "," + horaire;
+    }
+
 }
