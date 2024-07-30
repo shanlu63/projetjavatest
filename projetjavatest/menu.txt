@@ -1,0 +1,11 @@
+1, Salade César, Entrée, 7.99
+2, Poulet Rôti, Plat Principal, 15.99
+3, Tarte aux Pommes, Dessert, 5.99
+4, Soupe à l'oignon, Entrée, 6.99
+5, Steak Frites, Plat Principal, 18.99
+6, Mousse au Chocolat, Dessert, 6.50
+7, Escargots, Entrée, 9.50
+8, Coq au Vin, Plat Principal, 19.99
+9, Crème Brûlée, Dessert, 7.00
+10, Quiche Lorraine, Entrée, 8.50
+

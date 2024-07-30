@@ -60,10 +60,12 @@ public class Menu {
     // toString
     @Override
     public String toString() {
-        return "<html>Menu" +
+       /* return "<html>Menu" +
                 "<br>menuId : " + menuId +
                 "<br>nameplate : " + nameplate + 
                 "<br>type : " + type + 
-                "<br>prix : " + prix +"</html>";
+                "<br>prix : " + prix +"</html>";*/
+         return  ""+menuId +"   "+ nameplate+ "   " + type+ "   " +prix+ "   €" ;
+               
     }
 }
