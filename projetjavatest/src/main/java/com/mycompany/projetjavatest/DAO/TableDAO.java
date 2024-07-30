@@ -137,7 +137,7 @@ public class TableDAO {
     public boolean updateTable(int tableId, int status, int seat, String orderName, String orderTel, String horaire) {
         Table tableToUpdate = findTableById(tableId);//trouver le table id dans le txt 
         if (tableToUpdate != null) {
-            tableToUpdate.setStatus(2);// status 2 est reserve 
+            tableToUpdate.setStatus(status);// status 2 est reserve, status 1 est  disponible, status 3 est occupe
             tableToUpdate.setReservationDetails(orderName, orderTel, horaire);
             saveTableList(); // save to table.txt
             return true;
@@ -155,8 +155,6 @@ public class TableDAO {
             System.err.println("Erreur lors de la sauvegarde : " + e.getMessage());
         }
     }
-    public void reloadTableList() {//mis en jour si on modifier le table
-        this.tableList = initializeTableList();
-    }
+   
     
 }

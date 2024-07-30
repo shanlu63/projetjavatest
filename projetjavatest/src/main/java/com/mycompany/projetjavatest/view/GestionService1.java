@@ -95,7 +95,7 @@ public class GestionService1 extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jButtonValierRDV = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonAnnulerRDV = new javax.swing.JButton();
         jTextNom = new javax.swing.JTextField();
         jTextTelephone = new javax.swing.JTextField();
         jFormattedDate = new javax.swing.JFormattedTextField();
@@ -204,7 +204,7 @@ public class GestionService1 extends javax.swing.JFrame {
                         .addGroup(jPanelMenudugestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonAddtion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButtonReservation, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))))
-                .addGap(300, 300, 300))
+                .addContainerGap())
         );
         jPanelMenudugestionLayout.setVerticalGroup(
             jPanelMenudugestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -349,14 +349,19 @@ public class GestionService1 extends javax.swing.JFrame {
 
         jLabel6.setText("Date et Horaire");
 
-        jButtonValierRDV.setText("valiterRDV");
+        jButtonValierRDV.setText("ValiterRDV");
         jButtonValierRDV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonValierRDVActionPerformed(evt);
             }
         });
 
-        jButton2.setText("annuler RDV");
+        jButtonAnnulerRDV.setText("Annuler RDV");
+        jButtonAnnulerRDV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnnulerRDVActionPerformed(evt);
+            }
+        });
 
         jTextNom.setText("nom");
 
@@ -373,7 +378,7 @@ public class GestionService1 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelchoixletempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelchoixletempLayout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(jButtonAnnulerRDV)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonValierRDV, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelchoixletempLayout.createSequentialGroup()
@@ -407,7 +412,7 @@ public class GestionService1 extends javax.swing.JFrame {
                     .addComponent(jFormattedDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(jPanelchoixletempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
+                    .addComponent(jButtonAnnulerRDV)
                     .addComponent(jButtonValierRDV))
                 .addContainerGap())
         );
@@ -418,10 +423,10 @@ public class GestionService1 extends javax.swing.JFrame {
             jPanelstatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelstatusLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelstatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanelstatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelIDtable)
-                    .addComponent(jPanelReservation, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanelchoixletemp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanelchoixletemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelReservation, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanelstatusLayout.setVerticalGroup(
@@ -511,7 +516,7 @@ public class GestionService1 extends javax.swing.JFrame {
         choixInterface.setVisible(true);//quitter et aller le form de choix d'interface
        
     }//GEN-LAST:event_jButtonQuitterActionPerformed
-
+//---------------fonction de afficher le panel de  reservation ---start
     private void jButtonReservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReservationActionPerformed
         // TODO add your handling code here:
         //fonction pour cliquer le bouton de Reservation, affiche les bouton pour choisier les date
@@ -520,8 +525,21 @@ public class GestionService1 extends javax.swing.JFrame {
         jPanelstatus.setVisible(true);
         jPanelStatusdetable.setVisible(false);//status de table est invisible
         jPanelchoixletemp.setVisible(false);
+         // Afficher la date et l'heure actuelles dans le jFormattedDate
+        displayCurrentDateTime(); 
     }//GEN-LAST:event_jButtonReservationActionPerformed
     
+    private void displayCurrentDateTime() {
+    // Créer SimpleDateFormat et obtenir la date actuelle
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy-HH:mm");
+        Date currentDate = new Date();
+        String dateString = dateFormat.format(currentDate);
+
+        // Mettre à jour le texte du JLabel avec la date et l'heure actuelles
+        jFormattedDate.setText( dateString);
+    }
+
+//************focntion de afficher le panel de reservation ---fin
     private void jButtonDeconnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeconnexionActionPerformed
         // TODO add your handling code here:
          this.dispose();//fermer l'application
@@ -535,22 +553,28 @@ public class GestionService1 extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButtonDeconnexionActionPerformed
-   //----reservation valiter
+   
+    //-----------fin de button deconnexion
+    
+    
+   //----reservation valiter-------------start
     private void jButtonValierRDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValierRDVActionPerformed
         // TODO add your handling code here:
         //get the donnee , date of reservation
         //Saisir les donnees de RDV
             // get nom et prenom de RDV
         // get le nom et telephone de reservaseur 
-        String nomRDV = jTextNom.getText();
-        String teleRDV = jTextTelephone.getText();
+        String nomRDV ;
+        String teleRDV ;
         String dateString = jFormattedDate.getText();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy-HH:mm");
 
         try {
             Date date = dateFormat.parse(dateString);
-            if (date != null) {
-                JOptionPane.showMessageDialog(this, "Selected Date and Time: " + dateString);
+            nomRDV = jTextNom.getText();
+            teleRDV = jTextTelephone.getText();
+            if (date != null && nomRDV != null && !nomRDV.trim().isEmpty() && teleRDV != null && !teleRDV.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, nomRDV + "Selected Date and Time: " + dateString);
                 System.out.println(nomRDV + " " + teleRDV + " " + dateString);
 
                 TableDAO tableDAO = new TableDAO("table.txt");
@@ -560,14 +584,34 @@ public class GestionService1 extends javax.swing.JFrame {
                     tableList = tableDAO.initializeTableList();
                     displaytables(); 
                 }
-
-                String RDVmessage = nomRDV + " " + teleRDV + " " + dateString;
-                System.out.println("rdv : " + tableactual + " " + RDVmessage);
-            }
+   
+            }else{
+                JOptionPane.showMessageDialog(this, "Veuillez saisir le nom et le contact de réservateur!!");
+            }//fin if 
         } catch (ParseException e) {
             JOptionPane.showMessageDialog(this, "Veuillez saisir la date correcte au format  MM/dd/yy-HH：mm");
-        } 
+        }
+        statuactual = 2;
     }//GEN-LAST:event_jButtonValierRDVActionPerformed
+//------------------fin de valider le RDV 
+ //-----------------start de annuler le RDV
+    private void jButtonAnnulerRDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnulerRDVActionPerformed
+        // TODO add your handling code here:
+        //cliquez ce bouton ensuite modifier le status de table , annuler le RDV
+         TableDAO tableDAO = new TableDAO("table.txt");
+         statuactual = 1;
+         boolean annuler = tableDAO.updateTable(tableactual, statuactual, placeactual, null, null, null); // status 1: disponible
+
+         if (annuler) {
+             tableList = tableDAO.initializeTableList();
+             displaytables();
+         } 
+         
+    }//GEN-LAST:event_jButtonAnnulerRDVActionPerformed
+    //------------------fin deannuler le RDV
+    
+    
+    
     private void displaytables() {
         // Définir la disposition de jPanel1 en tant que GridBagLayout
         //
@@ -745,8 +789,8 @@ public class GestionService1 extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonAddtion;
+    private javax.swing.JButton jButtonAnnulerRDV;
     private javax.swing.JButton jButtonCommender;
     private javax.swing.JButton jButtonDeconnexion;
     private javax.swing.JButton jButtonQuitter;

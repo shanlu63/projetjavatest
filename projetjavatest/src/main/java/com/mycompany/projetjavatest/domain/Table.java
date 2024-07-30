@@ -145,7 +145,7 @@ public class Table {
 
      //set resrevation
     public void setReservationDetails(String orderName, String orderTel, String horaire) {
-        this.status = 2;
+        
         this.orderName = orderName;
         this.orderTel = orderTel;
         this.horaire = horaire;
