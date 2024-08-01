@@ -1,11 +1,25 @@
-1, Salade César, Entrée, 7.99
-2, Poulet Rôti, Plat Principal, 15.99
-3, Tarte aux Pommes, Dessert, 5.99
-4, Soupe à l'oignon, Entrée, 6.99
-5, Steak Frites, Plat Principal, 18.99
-6, Mousse au Chocolat, Dessert, 6.50
-7, Escargots, Entrée, 9.50
-8, Coq au Vin, Plat Principal, 19.99
-9, Crème Brûlée, Dessert, 7.00
-10, Quiche Lorraine, Entrée, 8.50
-
+1; Salade César; Entrée; 7,99
+2; Poulet Rôti; Plat Principal; 15,99
+3; Tarte aux Pommes; Dessert; 5,99
+4; Soupe à l'oignon; Entrée; 6,99
+5; Steak Frites; Plat Principal; 18,99
+6; Mousse au Chocolat; Dessert; 6,50
+7; Escargots; Entrée; 9,50
+8; Coq au Vin; Plat Principal; 19,99
+9; Crème Brûlée; Dessert; 7,00
+10; Quiche Lorraine; Entrée; 8,50
+12; Ratatouille; Plat Principal; 12,50
+13; Profiteroles; Dessert; 6,00
+14; Bouillabaisse; Plat Principal; 22,00
+15; Salade Niçoise; Entrée; 9,00
+16; Fondant au Chocolat; Dessert; 7,50
+17; Bœuf Bourguignon; Plat Principal; 21,00
+18; Café; Boisson; 2,50
+19; Croque Monsieur; Entrée; 8,00
+20; Kir Royal; Boisson; 5,50
+11; Eau Minérale; Boisson; 2,00
+21; Jus d'Orange; Boisson; 3,50
+22; Vin Rouge; Boisson; 4,50
+23; Vin Blanc; Boisson; 4,50
+24; Thé; Boisson; 2,50
+25; Coka Cola; Boisson; 3,00
