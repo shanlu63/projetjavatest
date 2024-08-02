@@ -30,35 +30,9 @@ public class connexion extends javax.swing.JFrame {
         initComponents();
         // Initialize the list of employes
         employes = new ArrayList<>();
-        // Add some example employes for test
-        //employes.add(new Emplois(1, "emp001", "123456", "Shan LU", "manager"));
-        //employes.add(new Emplois(2, "emp002", "abcdef", "Kayiba", "serveur"));
-        // Add more employes as needed
-        // Save the employes to file when the form is initialized
-        //saveEmployesToFile("emplois.txt");
-    }
-     /*
-     private void saveEmployesToFile(String filePath) {
-        List<String> emploisStringList = new ArrayList<>();
-        for (Emplois emploi : employes) {
-            String emploiStr = emploi.getId() + "," +
-                               emploi.getEmpId() + "," +
-                               emploi.getMdp() + "," +
-                               emploi.getNom() + "," +
-                               emploi.getJob();
-            emploisStringList.add(emploiStr);
-        }
         
-
-        try {
-            BasicDAO<Emplois> basicDAO = new BasicDAO<>();
-            basicDAO.writeToTxt(filePath, emploisStringList);
-            System.out.println("Employés sauvegardés dans le fichier " + filePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erreur lors de la sauvegarde des employés", "Erreur", JOptionPane.ERROR_MESSAGE);
-        }
-    }*/
+    }
+     
 
     /**
      * This method is called from within the constructor to initialize the form.

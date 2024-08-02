@@ -9,8 +9,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -18,6 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class MenuDAO {
     private JPanel commandPanel;
@@ -122,70 +126,171 @@ public class MenuDAO {
 
     // Ajouter un plat au commandPanel
     private void addToCommandPanel(Menu menu) {
-        if (commandPanel == null) {
-            return; // Si erreur
+         if (commandPanel == null) {
+        return; // Si erreur
+    }
+
+    SwingUtilities.invokeLater(() -> {
+        boolean menuExists = false;
+        for (Component component : commandPanel.getComponents()) {
+            if (component instanceof JPanel) {
+                JPanel panel = (JPanel) component;
+                for (Component innerComponent : panel.getComponents()) {
+                    if (innerComponent instanceof JLabel) {
+                        JLabel label = (JLabel) innerComponent;
+                        // Vérifier si le menu est déjà présent
+                        if (label.getText().startsWith(menu.getNameplate())) {
+                            // Trouver le champ de texte pour la quantité et augmenter la quantité
+                            for (Component c : panel.getComponents()) {
+                                if (c instanceof JTextField) {
+                                    JTextField quantityField = (JTextField) c;
+                                    try {
+                                        int quantity = Integer.parseInt(quantityField.getText());
+                                        quantityField.setText(String.valueOf(quantity + 1));
+                                    } catch (NumberFormatException e) {
+                                        quantityField.setText("1");
+                                    }
+                                    break;
+                                }
+                            }
+                            menuExists = true;
+                            break;
+                        }
+                    }
+                }
+                if (menuExists) break;
+            }
         }
 
-        SwingUtilities.invokeLater(() -> {
+        if (!menuExists) {
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.insets = new Insets(5, 5, 5, 5);
-            gbc.anchor = GridBagConstraints.WEST; // Left
+            gbc.anchor = GridBagConstraints.WEST; // Align to left
             gbc.gridx = 0;
             gbc.gridy = commandPanel.getComponentCount(); // Ajouter la commande dans la dernière ligne
 
+            JPanel itemPanel = new JPanel(new GridBagLayout());
+            GridBagConstraints itemGbc = new GridBagConstraints();
+            itemGbc.insets = new Insets(3, 3, 3, 3);
+            itemGbc.gridx = 0;
+            itemGbc.gridy = 0;
+
             JLabel commandLabel = new JLabel(menu.getNameplate() + " - " + String.format("%.2f €", menu.getPrix()));
-            commandPanel.add(commandLabel, gbc);
+            itemPanel.add(commandLabel, itemGbc);
+
+            // Ajouter un champ de texte pour la quantité
+            JTextField quantityField = new JTextField("1", 3);
+            quantityField.setHorizontalAlignment(JTextField.RIGHT);
+            itemGbc.gridx = 1;
+            itemPanel.add(quantityField, itemGbc);
+
+            JButton deleteButton = new JButton("Effacer");
+            itemGbc.gridx = 2;
+            itemPanel.add(deleteButton, itemGbc);
+
+            gbc.gridx = 0;
+            gbc.gridy = commandPanel.getComponentCount();
+            commandPanel.add(itemPanel, gbc);
+
+            deleteButton.addActionListener(e -> {
+                commandPanel.remove(itemPanel);
+                updateTotalLine();
+                commandPanel.revalidate();
+                commandPanel.repaint();
+            });
+
+            // Ajouter un DocumentListener pour mettre à jour le total lorsqu'une quantité change
+            quantityField.getDocument().addDocumentListener(new DocumentListener() {
+                @Override
+                public void insertUpdate(DocumentEvent e) {
+                    updateTotalLine();
+                }
+
+                @Override
+                public void removeUpdate(DocumentEvent e) {
+                    updateTotalLine();
+                }
+
+                @Override
+                public void changedUpdate(DocumentEvent e) {
+                    updateTotalLine();
+                }
+            });
 
             // Mise à jour total
             updateTotalLine();
+        } else {
+            updateTotalLine();
+        }
         });
     }
 
     // Mettre à jour la ligne de total
     private void updateTotalLine() {
         float total = 0;
-        
-        // Calculer le montant total
-        for (Component component : commandPanel.getComponents()) {
-            if (component instanceof JLabel) {
-                JLabel label = (JLabel) component;
-                String text = label.getText();
+    
+       
+    // Calculer le montant total
+    for (Component component : commandPanel.getComponents()) {
+        if (component instanceof JPanel) {
+            JPanel panel = (JPanel) component;
+            for (Component innerComponent : panel.getComponents()) {
+                if (innerComponent instanceof JLabel) {
+                    JLabel label = (JLabel) innerComponent;
+                    String text = label.getText();
+                    try {
+                        // Extraire la partie prix
+                        int priceStartIndex = text.lastIndexOf(" - ") + 3;
+                        int priceEndIndex = text.lastIndexOf(" €");
+                        if (priceStartIndex > 0 && priceEndIndex > priceStartIndex) {
+                            String priceStr = text.substring(priceStartIndex, priceEndIndex).trim();
+                            Number number = numberFormat.parse(priceStr);
+                            float price = number.floatValue();
 
-                try {
-                    // Extraire la partie prix
-                    int priceStartIndex = text.lastIndexOf(" - ") + 3;
-                    int priceEndIndex = text.lastIndexOf(" €");
-                    if (priceStartIndex > 0 && priceEndIndex > priceStartIndex) {
-                        String priceStr = text.substring(priceStartIndex, priceEndIndex).trim();
-                        Number number = numberFormat.parse(priceStr);
-                        float price = number.floatValue();
-                        total += price;
+                            // Chercher le champ de texte pour la quantité
+                            for (Component c : panel.getComponents()) {
+                                if (c instanceof JTextField) {
+                                    JTextField quantityField = (JTextField) c;
+                                    try {
+                                        int quantity = Integer.parseInt(quantityField.getText());
+                                        total += price * quantity;
+                                    } catch (NumberFormatException e) {
+                                        // Si le texte n'est pas un nombre valide, traiter comme quantité 0
+                                    }
+                                }
+                            }
+                        }
+                    } catch (ParseException e) {
+                        System.err.println("Error parsing price: " + e.getMessage());
                     }
-                } catch (ParseException e) {
-                    System.err.println("Error parsing price: " + e.getMessage());
                 }
             }
         }
-
-        // Supprimer l'ancienne ligne de total (si elle existe)
-        for (Component component : commandPanel.getComponents()) {
-            if (component instanceof JLabel && ((JLabel) component).getText().startsWith("Total:")) {
-                commandPanel.remove(component);
-            }
-        }
-
-        // Ajouter une nouvelle ligne de total
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.anchor = GridBagConstraints.WEST; // Align to left
-        gbc.gridx = 0;
-        gbc.gridy = commandPanel.getComponentCount()+2; // Add total line at the end
-        gbc.weighty = 0.0; // Reset weighty
-
-       JLabel totalLabel = new JLabel("Total: " + String.format("%.2f €", total));
-       
-        commandPanel.add(totalLabel, gbc);
-        commandPanel.revalidate();
-        commandPanel.repaint();
     }
+
+     // Supprimer l'ancienne ligne de total (si elle existe)
+    for (Component component : commandPanel.getComponents()) {
+        if (component instanceof JLabel && ((JLabel) component).getText().startsWith("Total:")) {
+            commandPanel.remove(component);
+        }
+    }
+
+    // Ajouter une nouvelle ligne de total
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.insets = new Insets(5, 3, 5, 3);
+    gbc.anchor = GridBagConstraints.WEST; // Align to left
+    gbc.gridx = 0;
+    gbc.gridy = commandPanel.getComponentCount()+2; // Add total line at the end
+    gbc.weighty = 0.0; // Reset weighty
+
+    JLabel totalLabel = new JLabel("Total: " + String.format("%.2f €", total));
+    commandPanel.add(totalLabel, gbc);
+
+   
+
+    commandPanel.revalidate();
+    commandPanel.repaint();
+    }
+
+
 }

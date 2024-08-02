@@ -138,7 +138,7 @@ public class Table {
                 statusString = "Inconnu";
                 break;
         }
-        String detail = "<html>Détail de Table :<br> Table " + idtable + ": <br>Status :" + statusString + "<br>Sièges: " + seat + "<br>Nom du réservateur : " + orderName + "<br>telephon : "+ orderTel+"<br>horaire : "+horaire+"</html>";
+        String detail = "<html>Détail de Table :<br> Table " + idtable + ": <br>Status :" + statusString + "<br>Sièges: " + seat + "<br>Nom du réservateur : " + orderName + "<br>téléphone : "+ orderTel+"<br>horaire : "+horaire+"</html>";
     
         return detail;
     }
