@@ -155,6 +155,15 @@ public class TableDAO {
             System.err.println("Erreur lors de la sauvegarde : " + e.getMessage());
         }
     }
+     public boolean updateTablecommand(int tableId, int status, int seat) {
+        Table tableToUpdate = findTableById(tableId);//trouver le table id dans le txt 
+        if (tableToUpdate != null) {
+            tableToUpdate.setStatus(status);// status 2 est reserve, status 1 est  disponible, status 3 est occupe
+            saveTableList(); // save to table.txt
+            return true;
+        }
+        return false;
+    }
    
     
 }

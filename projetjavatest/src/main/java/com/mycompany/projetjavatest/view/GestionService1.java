@@ -5,19 +5,20 @@
 package com.mycompany.projetjavatest.view;
 
 import com.mycompany.projetjavatest.DAO.TableDAO;
+import com.mycompany.projetjavatest.dao.CommandDAO;
 import com.mycompany.projetjavatest.dao.MenuDAO;
+
 import com.mycompany.projetjavatest.domain.Table;
 import java.awt.BorderLayout;
 import java.awt.Color;
+
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.Label;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,11 +26,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 import javax.swing.SwingConstants;
+
 
 /**
  *
@@ -66,6 +68,7 @@ public class GestionService1 extends javax.swing.JFrame {
          jScrollPaneMenu.setVisible(false);//cacher la panel de menu
          jPanelcommandcomfirm.setVisible(false);//cacher la panel de command
          jScrollPaneCommand.setVisible(false);//cacher la soroll panel de command
+         jPanelchoixpayement.setVisible(false);//cacher
         
     }
 
@@ -116,6 +119,10 @@ public class GestionService1 extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        jPanelchoixpayement = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -186,6 +193,11 @@ public class GestionService1 extends javax.swing.JFrame {
 
         jButtonAddtion.setText("l'addition");
         jButtonAddtion.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonAddtion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddtionActionPerformed(evt);
+            }
+        });
 
         jButtonStatus.setText("Status de table");
         jButtonStatus.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -528,37 +540,68 @@ public class GestionService1 extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
+        jPanelchoixpayement.setBackground(new java.awt.Color(255, 153, 0));
+
+        jButton1.setText("VIP(85%)");
+
+        jButton2.setText("En espèse(95%)");
+
+        jButton3.setText("CB(100%)");
+
+        javax.swing.GroupLayout jPanelchoixpayementLayout = new javax.swing.GroupLayout(jPanelchoixpayement);
+        jPanelchoixpayement.setLayout(jPanelchoixpayementLayout);
+        jPanelchoixpayementLayout.setHorizontalGroup(
+            jPanelchoixpayementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelchoixpayementLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(jPanelchoixpayementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
+        );
+        jPanelchoixpayementLayout.setVerticalGroup(
+            jPanelchoixpayementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelchoixpayementLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPaneMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
-                        .addComponent(jScrollPaneCommand, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanelLegende, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanelPlan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(280, 280, 280)
+                        .addContainerGap()
+                        .addComponent(jPanelLegende, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(748, 748, 748)
                         .addComponent(jButtonDeconnexion))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(116, 116, 116)
+                        .addGap(36, 36, 36)
+                        .addComponent(jPanelPlan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPaneMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPaneCommand, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanelStatusdetable, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanelMenudugestion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanelcommandcomfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanelstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(966, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanelstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPanelchoixpayement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(736, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -584,12 +627,19 @@ public class GestionService1 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanelcommandcomfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanelstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jScrollPaneMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPaneCommand, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanelPlan, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(216, 216, 216))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanelstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanelchoixpayement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(216, 216, 216))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPaneCommand, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jPanelPlan, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(2, 2, 2)
+                                    .addComponent(jScrollPaneMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -605,6 +655,7 @@ public class GestionService1 extends javax.swing.JFrame {
             jPanelstatus.setVisible(false);//cacher la panel de reservation
             jScrollPaneMenu.setVisible(false);//
             jScrollPaneCommand.setVisible(false);//
+            jPanelcommandcomfirm.setVisible(false);//
             
             
           
@@ -631,8 +682,9 @@ public class GestionService1 extends javax.swing.JFrame {
         // TODO add your handling code here:
         //fonction pour cliquer le bouton de Reservation, affiche les bouton pour choisier les date
          jPanelPlan.setVisible(true);//afficher le plan du restaurant
-         jScrollPaneMenu.setVisible(false);
-         jScrollPaneCommand.setVisible(false);//
+         jScrollPaneMenu.setVisible(false);//cacher
+         jScrollPaneCommand.setVisible(false);//cacher
+         jPanelcommandcomfirm.setVisible(false);//cacher
          
          //jPanelReservation.setVisible(true);//afficher la panel de reservation de table
         jPanelstatus.setVisible(true);
@@ -727,7 +779,7 @@ public class GestionService1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAnnulerRDVActionPerformed
 //------------------fin de annuler le RDV
     
-    
+    //----------------start de commander
     private void jButtonCommenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCommenderActionPerformed
         // TODO add your handling code here:
         
@@ -760,7 +812,7 @@ public class GestionService1 extends javax.swing.JFrame {
         jPanelcommandcomfirm.setVisible(true);
         // Permettre la commande
         // Afficher les données actuelles
-         JOptionPane.showMessageDialog(this, "Double-cliquez pour demander un plate!");
+         JOptionPane.showMessageDialog(this, "Veuillez cliquer pour demander un plate!");
         // Passer les composants nécessaires à MenuDAO
         MenuDAO menuDAO = new MenuDAO(commandPanel, jScrollPaneCommand);
 
@@ -768,6 +820,7 @@ public class GestionService1 extends javax.swing.JFrame {
         JPanel menuPanel = menuDAO.createMenuPanel("Menu.txt");
         // Mettre menuPanel dans le jScrollPaneMenu
         jScrollPaneMenu.setViewportView(menuPanel);
+       
     }
 
     // Revalidate and repaint to update the panel
@@ -778,17 +831,66 @@ public class GestionService1 extends javax.swing.JFrame {
 
     private void jButtonannulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonannulerActionPerformed
         // TODO add your handling code here:
-        //cliquez ce bouton pour annuler tout les commendes dans le panel de commend
+        //cliquez ce bouton pour annuler tout les commandes dans le panel de commend
+        
+            //nettroyer commandPanel tous les command
+       commandPanel.removeAll();
+
+       // mis en jour commandPanel
+       commandPanel.revalidate();
+       commandPanel.repaint();
+
     }//GEN-LAST:event_jButtonannulerActionPerformed
 
     private void jButtoncomfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtoncomfirmActionPerformed
         // TODO add your handling code here:
-         //cliquez ce bouton pour confirmer tout les commendes
+        // create CommandDAO 
+    CommandDAO commandDAO = new CommandDAO(commandPanel);
+
+    // save le command to command.txt
+    commandDAO.saveCommandsToFile("command.txt",tableactual);
+
+    JOptionPane.showMessageDialog(this, "Les commandes ont été confirmées et enregistrées .");
+    if(statuactual !=3 ){
+        statuactual =3;
+        //midifier le status de talbe 
+         TableDAO tableDAO = new TableDAO("table.txt");
+                boolean updated = tableDAO.updateTablecommand(tableactual, statuactual, placeactual);
+
+                if (updated) {
+                    tableList = tableDAO.initializeTableList();
+                    displaytables(); 
+                }
+    }
+
     }//GEN-LAST:event_jButtoncomfirmActionPerformed
+
+    private void jButtonAddtionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddtionActionPerformed
+        // TODO add your handling code here:
+        //afficher tous les command et choisir un method de payment 
+        jScrollPaneCommand.setVisible(true);
+        jPanelPlan.setVisible(false);
+        
+        // Initialize CommandDAO
+        CommandDAO commandDAO = new CommandDAO();
+        // Create the command panel with commands from the file
+        JPanel commandPanel = commandDAO.createCommandPanel("command.txt");
+         // Set the command panel in JScrollPane
+        jScrollPaneCommand.setViewportView(commandPanel);
+        /*
+         MenuDAO menuDAO = new MenuDAO(commandPanel, jScrollPaneCommand);
+
+        // Créer et afficher le panneau de menu
+        JPanel menuPanel = menuDAO.createMenuPanel("Menu.txt");
+        // Mettre menuPanel dans le jScrollPaneMenu
+        jScrollPaneMenu.setViewportView(menuPanel);
+        */
+        
+    }//GEN-LAST:event_jButtonAddtionActionPerformed
+  //-------------------------fin de command
     
     
-    
-    
+  
     private void displaytables() {
         // Définir la disposition de jPanel1 en tant que GridBagLayout
         //
@@ -931,6 +1033,9 @@ public class GestionService1 extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonAddtion;
     private javax.swing.JButton jButtonAnnulerRDV;
     private javax.swing.JButton jButtonCommender;
@@ -963,6 +1068,7 @@ public class GestionService1 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelReservation;
     private javax.swing.JPanel jPanelStatusdetable;
     private javax.swing.JPanel jPanelchoixletemp;
+    private javax.swing.JPanel jPanelchoixpayement;
     private javax.swing.JPanel jPanelcommandcomfirm;
     private javax.swing.JPanel jPanelstatus;
     private javax.swing.JScrollPane jScrollPaneCommand;

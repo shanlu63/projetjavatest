@@ -1,7 +1,7 @@
 package com.mycompany.projetjavatest.dao;
 
 import com.mycompany.projetjavatest.domain.Menu;
-import com.mycompany.projetjavatest.view.GestionService1;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,10 +9,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileWriter;
+
 import java.io.InputStreamReader;
 import java.io.IOException;
-import java.io.PrintWriter;
+
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -22,6 +22,7 @@ import java.util.Locale;
 import java.util.Map;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 
 public class MenuDAO {
     private JPanel commandPanel;
@@ -42,12 +43,13 @@ public class MenuDAO {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(";"); // Split par point-virgule
-                if (parts.length == 4) {
+                if (parts.length == 5) {
                     int menuId = Integer.parseInt(parts[0].trim());
                     String nameplate = parts[1].trim();
                     String type = parts[2].trim();
                     float prix = numberFormat.parse(parts[3].trim()).floatValue();
-                    menus.add(new Menu(menuId, nameplate, type, prix));
+                    int quantite = Integer.parseInt(parts[4].trim());
+                    menus.add(new Menu(menuId, nameplate, type, prix, quantite));
                 }
             }
         } catch (IOException | ParseException e) {
@@ -222,6 +224,10 @@ public class MenuDAO {
         } else {
             updateTotalLine();
         }
+        // test，print commandPanel
+        for (Component component : commandPanel.getComponents()) {
+            System.out.println(component);
+        }
         });
     }
 
@@ -291,6 +297,5 @@ public class MenuDAO {
     commandPanel.revalidate();
     commandPanel.repaint();
     }
-
-
+    
 }
