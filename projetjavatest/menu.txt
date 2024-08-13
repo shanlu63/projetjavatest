@@ -1,25 +1,10 @@
-1; Salade César; Entrée; 7,99;100
-2; Poulet Rôti; Plat Principal; 15,99;100
-3; Tarte aux Pommes; Dessert; 5,99;100
-4; Soupe à l'oignon; Entrée; 6,99;100
-5; Steak Frites; Plat Principal; 18,99;100
-6; Mousse au Chocolat; Dessert; 6,50;100
-7; Escargots; Entrée; 9,50;100
-8; Coq au Vin; Plat Principal; 19,99;100
-9; Crème Brûlée; Dessert; 7,00;100
-10; Quiche Lorraine; Entrée; 8,50;100
-12; Ratatouille; Plat Principal; 12,50;100
-13; Profiteroles; Dessert; 6,00;100
-14; Bouillabaisse; Plat Principal; 22,00;100
-15; Salade Niçoise; Entrée; 9,00;100
-16; Fondant au Chocolat; Dessert; 7,50;100
-17; Bœuf Bourguignon; Plat Principal; 21,00;100
-18; Café; Boisson; 2,50;100
-19; Croque Monsieur; Entrée; 8,00;100
-20; Kir Royal; Boisson; 5,50;100
-11; Eau Minérale; Boisson; 2,00;100
-21; Jus d'Orange; Boisson; 3,50;100
-22; Vin Rouge; Boisson; 4,50;100
-23; Vin Blanc; Boisson; 4,50;100
-24; Thé; Boisson; 2,50;100
-25; Coka Cola; Boisson; 3,00;100
+1; Salade César; Laitue|Croutons|Parmesan|Poulet; Entrée; 7,99; 100
+2; Poulet Rôti; Poulet|Herbes|Pommes de Terre; Plat Principal; 15,99; 100
+3; Tarte aux Pommes; Pommes|Sucre|Pâte Feuilletée; Dessert; 5,99; 100
+4; Soupe à l'Oignon; Oignons|Bouillon|Fromage|Pain; Entrée; 6,50; 150
+5; Lasagnes; Viande Hachée|Pâtes|Fromage|Sauce Béchamel; Plat Principal; 12,99; 200
+6; Crêpes Suzette; Crêpes|Sauce Oranges|Beurre; Dessert; 8,50; 120
+7; Quiche Lorraine; Lardons|Crème|Oeufs|Pâte Brisée; Plat Principal; 10,00; 80
+8; Carpaccio de Boeuf; Boeuf|Parmesan|Rucola|Citron; Entrée; 9,50; 60
+9; Mousse au Chocolat; Chocolat|Crème|Œufs|Sucre; Dessert; 4,99; 150
+10; Ratatouille; Aubergines|Courgettes|Poivrons|Tomates; Plat Principal; 11,25; 100

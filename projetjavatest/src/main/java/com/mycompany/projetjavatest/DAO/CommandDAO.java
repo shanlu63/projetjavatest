@@ -137,7 +137,7 @@ public class CommandDAO {
         return commands;
     }
      // Create a command panel displaying commands from the file
-    public JPanel createCommandPanel(String fileName) {
+    public JPanel createCommandPanel(String fileName,int tableactual) {
       
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // Stack components vertically
@@ -162,16 +162,20 @@ public class CommandDAO {
 
         // Add a panel for each command
         for (Command command : commands) {
-            JPanel commandPanel = new JPanel(new GridLayout(1, 8));
-            commandPanel.add(new JLabel(String.valueOf(command.getIdCommand())));
-            commandPanel.add(new JLabel(String.valueOf(command.getIdTable())));
-            commandPanel.add(new JLabel(command.getPlate()));
-            commandPanel.add(new JLabel(String.valueOf(command.getQuantity())));
-            commandPanel.add(new JLabel(String.format("%.2f", command.getPrixTotalHT())));
-            commandPanel.add(new JLabel(String.format("%.2f", command.getPrixTVA())));
-            commandPanel.add(new JLabel(dateFormat.format(command.getDate())));
-            commandPanel.add(new JLabel(String.valueOf(command.isPayement())));
-            panel.add(commandPanel);
+            if(command.getIdTable()==tableactual){
+            
+                JPanel commandPanel = new JPanel(new GridLayout(1, 8));
+                commandPanel.add(new JLabel(String.valueOf(command.getIdCommand())));
+                commandPanel.add(new JLabel(String.valueOf(command.getIdTable())));
+                commandPanel.add(new JLabel(command.getPlate()));
+                commandPanel.add(new JLabel(String.valueOf(command.getQuantity())));
+                commandPanel.add(new JLabel(String.format("%.2f", command.getPrixTotalHT())));
+                commandPanel.add(new JLabel(String.format("%.2f", command.getPrixTVA())));
+                commandPanel.add(new JLabel(dateFormat.format(command.getDate())));
+                commandPanel.add(new JLabel(String.valueOf(command.isPayement())));
+                panel.add(commandPanel);
+            }
+            
         }
 
         

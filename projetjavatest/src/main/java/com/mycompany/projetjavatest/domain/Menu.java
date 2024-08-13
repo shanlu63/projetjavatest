@@ -1,22 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.projetjavatest.domain;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe représentant un menu.
  * 
  * Cette classe contient les détails d'un menu, y compris l'ID du menu,
- * le nom du plat, le type de plat, le prix du plat et la quantité commandée.
- * 
+ * la liste des plats, le type de menu, le prix total et la quantité commandée.
  */
 public class Menu {
+   
     private int menuId; // ID du menu pour commander
-    private String nameplate; // Nom du plat
-    private String type; // Type de plat
-    private float prix; // Prix du plat
-    private int quantite; // Quantité du plat
+    private List<Cuisine> plat; // Liste des plats
+    private String type; // Type de menu
+    private float prix; // Prix total du menu
+    private int quantite; // Quantité commandée
 
     /**
      * Constructeur par défaut.
@@ -27,15 +26,15 @@ public class Menu {
     /**
      * Constructeur avec paramètres.
      * 
-     * @param menuId l'ID du menu
-     * @param nameplate le nom du plat
-     * @param type le type de plat
-     * @param prix le prix du plat
-     * @param quantite la quantité du plat
+     * @param menuId
+     * @param plat la liste des plats
+     * @param type le type de menu
+     * @param prix le prix total du menu
+     * @param quantite la quantité commandée
      */
-    public Menu(int menuId, String nameplate, String type, float prix, int quantite) {
+     public Menu(int menuId, List<Cuisine> plat, String type, float prix, int quantite) {
         this.menuId = menuId;
-        this.nameplate = nameplate;
+        this.plat = new ArrayList<>(plat); // Crée une nouvelle liste pour éviter les modifications externes
         this.type = type;
         this.prix = prix;
         this.quantite = quantite;
@@ -46,8 +45,8 @@ public class Menu {
         return menuId;
     }
 
-    public String getNameplate() {
-        return nameplate;
+    public List<Cuisine> getPlat() {
+        return plat;
     }
 
     public String getType() {
@@ -63,12 +62,15 @@ public class Menu {
     }
 
     // Setters
-    public void setMenuId(int menuId) {
-        this.menuId = menuId;
+   public void setPlat(List<Cuisine> plat) {
+        this.plat = new ArrayList<>(plat);
     }
 
-    public void setNameplate(String nameplate) {
-        this.nameplate = nameplate;
+    public void ajouterPlat(Cuisine plate) {
+        if (this.plat == null) {
+            this.plat = new ArrayList<>();
+        }
+        this.plat.add(plate);
     }
 
     public void setType(String type) {
@@ -82,17 +84,18 @@ public class Menu {
     public void setQuantite(int quantite) {
         this.quantite = quantite;
     }
-   
 
     // toString
     @Override
     public String toString() {
-   
-         return  ""+menuId +"   "+ nameplate+ "   " + type+ "   " +prix+ "   €  " + quantite ;
-               
-    }
-
-    public Object getQuantity() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        StringBuilder platsString = new StringBuilder();
+        for (Cuisine cuisine : plat) {
+            platsString.append(cuisine.getNom()).append(", ");
+        }
+        // Remove the last comma and space if there are any plats
+        if (platsString.length() > 0) {
+            platsString.setLength(platsString.length() - 2);
+        }
+        return menuId + "   " + platsString.toString() + "   " + type + "   " + String.format("%.2f", prix) + " €   Quantité: " + quantite;
     }
 }
