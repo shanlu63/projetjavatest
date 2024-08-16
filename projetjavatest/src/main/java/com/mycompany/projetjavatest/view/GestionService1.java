@@ -4,9 +4,12 @@
  */
 package com.mycompany.projetjavatest.view;
 
+import com.mycompany.projetjavatest.DAO.FactureDAO;
 import com.mycompany.projetjavatest.DAO.TableDAO;
 import com.mycompany.projetjavatest.dao.CommandDAO;
 import com.mycompany.projetjavatest.dao.MenuDAO;
+import com.mycompany.projetjavatest.domain.Command;
+import com.mycompany.projetjavatest.domain.Facture;
 
 import com.mycompany.projetjavatest.domain.Table;
 import java.awt.BorderLayout;
@@ -553,6 +556,11 @@ public class GestionService1 extends javax.swing.JFrame {
         });
 
         jButtonFacture.setText("Facture");
+        jButtonFacture.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFactureActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelchoixpayementLayout = new javax.swing.GroupLayout(jPanelchoixpayement);
         jPanelchoixpayement.setLayout(jPanelchoixpayementLayout);
@@ -935,10 +943,8 @@ public class GestionService1 extends javax.swing.JFrame {
          // Set the command panel in JScrollPane
         jScrollPaneCommand.setViewportView(commandPanel);
          // Display total to pay
-            totalToPay = commandDAO.getTotalToPay();
-            JOptionPane.showMessageDialog(this, "Total à payer: " + String.format("%.2f €", totalToPay), "Total Amount", JOptionPane.INFORMATION_MESSAGE);
-        
-        
+           totalToPay = commandDAO.getTotalToPay();
+           JOptionPane.showMessageDialog(this, "Total à payer: " + String.format("%.2f €", totalToPay), "Total Amount", JOptionPane.INFORMATION_MESSAGE);
         
         
     }//GEN-LAST:event_jButtonAddtionActionPerformed
@@ -947,10 +953,16 @@ public class GestionService1 extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         //payer par carte bleue , 100 % sans discount
-         
+         // Initialize CommandDAO
+            CommandDAO commandDAO = new CommandDAO();
+             JPanel commandPanel = commandDAO.createCommandPanel("command.txt",tableactual);
+            totalToPay = commandDAO.getTotalToPay();
+            
+            String totalToPayText = String.format("%.2f €", totalToPay); 
+       
         int option = JOptionPane.showConfirmDialog(
         this, 
-        "Vous devez payer: " + String.format("%.2f €", totalToPay) + "\nVoulez-vous confirmer le paiement ?", 
+        "Vous devez payer: " + totalToPayText + "\nVoulez-vous confirmer le paiement ?", 
         "Confirmation du paiement", 
         JOptionPane.OK_CANCEL_OPTION, 
         JOptionPane.INFORMATION_MESSAGE
@@ -960,20 +972,7 @@ public class GestionService1 extends javax.swing.JFrame {
             // User clicked "OK", proceed with payment
             JOptionPane.showMessageDialog(this, "Paiement confirmé !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
 
-            // Initialize CommandDAO
-            CommandDAO commandDAO = new CommandDAO();
-
-            // Update payment status for the current table
-            commandDAO.updatePaymentStatus("command.txt", tableactual);
-            
-            // Refresh the command panel to reflect the updated payment status
-            JPanel commandPanel = commandDAO.createCommandPanel("command.txt", tableactual);
-            jScrollPaneCommand.setViewportView(commandPanel);
-
-            // Optional: Clear the current command panel if needed
-            jScrollPaneCommand.revalidate();
-            jScrollPaneCommand.repaint();
-            
+             
              TableDAO tableDAO = new TableDAO("table.txt");
              boolean updated = tableDAO.updateTable(tableactual, 1, placeactual,null,null,null);
               if (updated) {
@@ -981,6 +980,23 @@ public class GestionService1 extends javax.swing.JFrame {
                     displaytables(); 
                 }
 
+
+            // Update payment status for the current table
+            commandDAO.updatePaymentStatus("command.txt", tableactual);
+            
+            // Refresh the command panel to reflect the updated payment status
+            JPanel commandPanelnew = commandDAO.createCommandPanel("command.txt", tableactual);
+            jScrollPaneCommand.setViewportView(commandPanelnew);
+
+            // Optional: Clear the current command panel if needed
+            jScrollPaneCommand.revalidate();
+            jScrollPaneCommand.repaint();
+            
+             // Save the Facture
+            Facture facture = new Facture(commandDAO.getCommandByTable("command.txt", tableactual), "carte bleue");
+            FactureDAO factureDAO = new FactureDAO();
+            factureDAO.saveFacture(facture);
+           
         // Save updated commands to file (Optional if updates are saved directly in updatePaymentStatus)
         // commandDAO.saveCommandsToFile("command.txt", tableactual);
             
@@ -997,16 +1013,27 @@ public class GestionService1 extends javax.swing.JFrame {
         // TODO add your handling code here:
         //payement en espece , calculer  le monnaie
         // Récupérer le montant à payer (par exemple, depuis un champ texte)
-        // Récupérer le montant à payer (par exemple, depuis un champ texte)
-       // 
+        
+       
     if (jTextFieldAmountDue == null) {
         jTextFieldAmountDue = new JTextField();
     }
 
     // get totalprix
              //CommandDAO commandDAO = new CommandDAO();
-           // totalToPay = commandDAO.getTotalToPay(); // utlise commandDAO pour un nouveau totalprix
-            jTextFieldAmountDue.setText(String.valueOf(totalToPay));  //envoyer le prix dans le text 
+            //totalToPay = commandDAO.getTotalToPay(); // utlise commandDAO pour un nouveau totalprix
+            //jTextFieldAmountDue.setText(String.valueOf(commandDAO.getTotalToPay()));  //envoyer le prix dans le text 
+            
+            // Format the total amount to two decimal places
+             // Initialize CommandDAO
+             CommandDAO commandDAO = new CommandDAO();
+             
+             JPanel commandPanel = commandDAO.createCommandPanel("command.txt",tableactual);
+             totalToPay = commandDAO.getTotalToPay();
+            String formattedTotalToPay = String.format("%.2f", totalToPay);
+
+            // Set the formatted total amount in the JTextField
+            jTextFieldAmountDue.setText(formattedTotalToPay);
             
 
                try {
@@ -1029,30 +1056,37 @@ public class GestionService1 extends javax.swing.JFrame {
                         if (change < 0) {
                             JOptionPane.showMessageDialog(this, "Le montant payé est insuffisant !", "Erreur", JOptionPane.ERROR_MESSAGE);
                             return;
+                            
                         } else {
                             // Afficher le monnaie
                             JOptionPane.showMessageDialog(this, "Le monnaie à rendre est : " + formattedChange + " €", "Monnaie", JOptionPane.INFORMATION_MESSAGE);
                             
-                             // Initialize CommandDAO
-                            CommandDAO commandDAO = new CommandDAO();
-
-                            // Update payment status for the current table
-                            commandDAO.updatePaymentStatus("command.txt", tableactual);
-
-                            // Refresh the command panel to reflect the updated payment status
-                            JPanel commandPanel = commandDAO.createCommandPanel("command.txt", tableactual);
-                            jScrollPaneCommand.setViewportView(commandPanel);
-
-                            // Optional: Clear the current command panel if needed
-                            jScrollPaneCommand.revalidate();
-                            jScrollPaneCommand.repaint();
-
+                            
                              TableDAO tableDAO = new TableDAO("table.txt");
                              boolean updated = tableDAO.updateTable(tableactual, 1, placeactual,null,null,null);
                               if (updated) {
                                     tableList = tableDAO.initializeTableList();
                                     displaytables(); 
                                 }
+                            
+
+                            // Update payment status for the current table
+                            commandDAO.updatePaymentStatus("command.txt", tableactual);
+
+                            // Refresh the command panel to reflect the updated payment status
+                            JPanel commandPanelnew = commandDAO.createCommandPanel("command.txt", tableactual);
+                            jScrollPaneCommand.setViewportView(commandPanelnew);
+
+                            // Optional: Clear the current command panel if needed
+                            jScrollPaneCommand.revalidate();
+                            jScrollPaneCommand.repaint();
+                            
+                            
+                            // Save the Facture
+                            Facture facture = new Facture(commandDAO.getCommandByTable("facture.txt", tableactual), "en espèces");
+                            FactureDAO factureDAO = new FactureDAO();
+                            factureDAO.saveFacture(facture);
+
 
                         }
                     } else {
@@ -1066,6 +1100,23 @@ public class GestionService1 extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Veuillez entrer un montant valide.", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
     }//GEN-LAST:event_jButtonEnespeceActionPerformed
+
+    private void jButtonFactureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFactureActionPerformed
+        // TODO add your handling code here:
+        
+        // Create a FactureDAO instance
+        FactureDAO factureDAO = new FactureDAO();
+
+        // Read the last Facture entry from the file (optional implementation for reading the last entry)
+        String lastFacture = factureDAO.readLastFacture();
+
+        // Display the last Facture in a dialog
+        if (lastFacture != null) {
+            JOptionPane.showMessageDialog(this, "Dernière facture:\n" + lastFacture, "Facture", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Aucune facture trouvée.", "Facture", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonFactureActionPerformed
   //-------------------------fin de command
     
     
