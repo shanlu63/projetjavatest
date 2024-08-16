@@ -1,30 +1,29 @@
 package com.mycompany.projetjavatest.dao;
-
-
 import com.mycompany.projetjavatest.domain.Command;
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.List;
 import java.util.ArrayList;
-
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class CommandDAO {
-    private static int currentId = (int) (System.currentTimeMillis() & 0xfffffff);//start ID from an initial value
+
+    private static int currentId = (int) (System.currentTimeMillis() & 0xfffffff); // Start ID from an initial value
     private JPanel commandPanel;
     private NumberFormat numberFormat;
-    
-     public CommandDAO() {
-       
+    private float totalToPay;
+    private float totalHT;
+    private float totalTVA;
+    private int rowIndex;
+
+    public CommandDAO() {
     }
 
     public CommandDAO(JPanel commandPanel) {
@@ -34,19 +33,20 @@ public class CommandDAO {
         this.numberFormat.setMaximumFractionDigits(2);
     }
 
-   
+    public float getTotalToPay() {
+        return totalToPay;
+    }
 
-    // sauvgarder dan le table
     // Save commands to file
     public void saveCommandsToFile(String fileName, int idTable) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName,true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             for (Component component : commandPanel.getComponents()) {
                 if (component instanceof JPanel) {
                     JPanel panel = (JPanel) component;
                     String nameplate = null;
                     String priceStr = null;
                     String quantity = null;
-                    int idCommand = generateUniqueCommandId(); // A method to generate a unique command ID
+                    int idCommand = generateUniqueCommandId(); // Generate a unique command ID
                     Date date = new Date(); // Current date and time
                     float price = 0.0f;
                     float prixTVA = 0.0f;
@@ -56,7 +56,6 @@ public class CommandDAO {
                         if (innerComponent instanceof JLabel) {
                             JLabel label = (JLabel) innerComponent;
                             String text = label.getText();
-                            // Extract nameplate and price
                             if (text.contains(" - ")) {
                                 nameplate = text.split(" - ")[0];
                                 priceStr = text.split(" - ")[1].split(" ")[0];
@@ -74,11 +73,9 @@ public class CommandDAO {
                         }
                     }
 
-                    // Verify all information is saved
                     if (nameplate != null && priceStr != null && quantity != null) {
-                        
                         String formattedPrixTVA = numberFormat.format(prixTVA);
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy-hh:mm");
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy-HH:mm");
                         String formattedDate = dateFormat.format(date);
                         String entry = String.join(";", 
                             String.valueOf(idCommand), 
@@ -98,20 +95,16 @@ public class CommandDAO {
                     }
                 }
             }
-            // System.out.println("Commands saved to file: " + fileName);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // Dummy method to generate unique command ID
     private int generateUniqueCommandId() {
-        // Implement your logic to generate a unique command ID
         return currentId++;
     }
-    
-    
-     // Read commands from file
+
+    // Read commands from file
     public List<Command> readCommandsFromFile(String fileName) {
         List<Command> commands = new ArrayList<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy-HH:mm");
@@ -136,53 +129,140 @@ public class CommandDAO {
         }
         return commands;
     }
-     // Create a command panel displaying commands from the file
-    public JPanel createCommandPanel(String fileName,int tableactual) {
-      
+
+    public JPanel createCommandPanel(String fileName, int tableactual) {
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // Stack components vertically
+    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // Stack components vertically
 
-        // Read commands from file
-        List<Command> commands = readCommandsFromFile(fileName);
+    // Read commands from file
+    List<Command> commands = readCommandsFromFile(fileName);
 
-        // Add a label for headers
-        JPanel headerPanel = new JPanel(new GridLayout(1, 8));
-        headerPanel.add(new JLabel("ID"));
-        headerPanel.add(new JLabel("Table ID"));
-        headerPanel.add(new JLabel("Nameplate"));
-        headerPanel.add(new JLabel("Quantity"));
-        headerPanel.add(new JLabel("Price"));
-        headerPanel.add(new JLabel("Prix TVA"));
-        headerPanel.add(new JLabel("Date"));
-        headerPanel.add(new JLabel("Payment"));
-        panel.add(headerPanel);
+    // Add a label for headers with tighter spacing
+    JPanel headerPanel = new JPanel(new GridLayout(1, 9, 1, 0)); // hgap = 1, vgap = 0 for tighter spacing
+    headerPanel.add(createCompactLabel("ID"));
+    headerPanel.add(createCompactLabel("Table ID"));
+    headerPanel.add(createCompactLabel("Plate"));
+    headerPanel.add(createCompactLabel("Quantity"));
+    headerPanel.add(createCompactLabel("Prix HT"));
+    headerPanel.add(createCompactLabel("Prix TVA"));
+    headerPanel.add(createCompactLabel("Date"));
+    headerPanel.add(createCompactLabel("Payment"));
+    headerPanel.add(createCompactLabel("Action")); // New column for delete button
+    panel.add(headerPanel);
 
-        // Format for dates
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy-HH:mm");
+    // Format for dates
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy-HH:mm");
 
-        // Add a panel for each command
-        for (Command command : commands) {
-            if(command.getIdTable()==tableactual){
-            
-                JPanel commandPanel = new JPanel(new GridLayout(1, 8));
-                commandPanel.add(new JLabel(String.valueOf(command.getIdCommand())));
-                commandPanel.add(new JLabel(String.valueOf(command.getIdTable())));
-                commandPanel.add(new JLabel(command.getPlate()));
-                commandPanel.add(new JLabel(String.valueOf(command.getQuantity())));
-                commandPanel.add(new JLabel(String.format("%.2f", command.getPrixTotalHT())));
-                commandPanel.add(new JLabel(String.format("%.2f", command.getPrixTVA())));
-                commandPanel.add(new JLabel(dateFormat.format(command.getDate())));
-                commandPanel.add(new JLabel(String.valueOf(command.isPayement())));
-                panel.add(commandPanel);
-            }
-            
+    // Variables pour calculer les totaux
+    totalHT = 0;
+    totalTVA = 0;
+
+    // Add a panel for each command
+    for (Command command : commands) {
+        if ((command.getIdTable() == tableactual) && (!command.isPayement())) {
+
+            JPanel commandPanel = new JPanel(new GridLayout(1, 9, 1, 0)); // hgap = 1, vgap = 0 for tighter spacing
+            commandPanel.add(createCompactLabel(String.valueOf(command.getIdCommand())));
+            commandPanel.add(createCompactLabel(String.valueOf(command.getIdTable())));
+            commandPanel.add(createCompactLabel(command.getPlate()));
+            commandPanel.add(createCompactLabel(String.valueOf(command.getQuantity())));
+            commandPanel.add(createCompactLabel(String.format("%.2f", command.getPrixTotalHT())));
+            commandPanel.add(createCompactLabel(String.format("%.2f", command.getPrixTVA())));
+            commandPanel.add(createCompactLabel(dateFormat.format(command.getDate())));
+            commandPanel.add(createCompactLabel(String.valueOf(command.isPayement())));
+
+            // Add delete button
+            JButton deleteButton = new JButton("Effacer");
+            deleteButton.setPreferredSize(new Dimension(60, 20)); // Set button size for compact look
+            deleteButton.addActionListener(e -> {
+                // Remove command panel
+                panel.remove(commandPanel);
+                // Update totals
+                totalHT -= command.getPrixTotalHT();
+                totalTVA -= command.getPrixTVA();
+                totalToPay = totalHT + totalTVA;
+                // Refresh total panel
+                updateTotalPanel(panel, totalToPay);
+                // Refresh the panel
+                panel.revalidate();
+                panel.repaint();
+            });
+            commandPanel.add(deleteButton);
+            panel.add(commandPanel);
+
+            // calculer le prix HT et les TVA 
+            totalHT += command.getPrixTotalHT();
+            totalTVA += command.getPrixTVA();
         }
-
-        
-
-        return panel; // Return the JScrollPane containing the panel
     }
 
-    
-    
+    // Calculer le montant total à payer
+    totalToPay = totalHT + totalTVA;
+
+    // Ajouter une ligne pour le montant total à payer
+    updateTotalPanel(panel, totalToPay);
+
+    return panel;
+    }
+
+    private JLabel createCompactLabel(String text) {
+        JLabel label = new JLabel(text);
+        label.setPreferredSize(new Dimension(60, 20)); // Adjust size for readability
+        label.setHorizontalAlignment(SwingConstants.CENTER); // Center text horizontally
+        return label;
+    }
+
+    private void updateTotalPanel(JPanel panel, float totalToPay) {
+         // Remove existing total panel if present
+    Component[] components = panel.getComponents();
+    for (Component component : components) {
+        if (component instanceof JPanel) {
+            JPanel existingPanel = (JPanel) component;
+            if (existingPanel.getComponentCount() > 0 && 
+                existingPanel.getComponent(0) instanceof JLabel &&
+                ((JLabel) existingPanel.getComponent(0)).getText().contains("Montant")) {
+                panel.remove(existingPanel);
+                break;
+            }
+        }
+    }
+
+    // Create a new total panel
+    JPanel finalAmountPanel = new JPanel(new GridLayout(1, 9, 1, 0)); // hgap = 1, vgap = 0 for tighter spacing
+    finalAmountPanel.add(createCompactLabel("Montant"));
+    finalAmountPanel.add(createCompactLabel("à payer"));
+    finalAmountPanel.add(createCompactLabel(""));
+    finalAmountPanel.add(createCompactLabel("(Prix TTC)"));
+    finalAmountPanel.add(createCompactLabel(String.format("%.2f €", totalToPay)));
+    finalAmountPanel.add(createCompactLabel(" "));
+    finalAmountPanel.add(createCompactLabel(" "));
+    finalAmountPanel.add(createCompactLabel(" "));
+    finalAmountPanel.add(createCompactLabel(" "));
+    panel.add(finalAmountPanel);
+    }
+
+    public void updatePaymentStatus(String fileName, int idTable) {
+        List<Command> commands = readCommandsFromFile(fileName);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (Command command : commands) {
+                if (command.getIdTable() == idTable) {
+                    command.setPayement(true); // Update payment status to true
+                }
+                writer.write(String.join(";",
+                    String.valueOf(command.getIdCommand()),
+                    String.valueOf(command.getIdTable()),
+                    command.getPlate(),
+                    String.valueOf(command.getQuantity()),
+                    String.format("%.2f", command.getPrixTotalHT()),
+                    String.format("%.2f", command.getPrixTVA()),
+                    new SimpleDateFormat("dd/MM/yyyy-HH:mm").format(command.getDate()),
+                    String.valueOf(command.isPayement())
+                ));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

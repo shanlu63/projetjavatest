@@ -96,6 +96,6 @@ public class Menu {
         if (platsString.length() > 0) {
             platsString.setLength(platsString.length() - 2);
         }
-        return menuId + "   " + platsString.toString() + "   " + type + "   " + String.format("%.2f", prix) + " €   Quantité: " + quantite;
+        return menuId + "   " + platsString.toString() + "   " + type + "   " + String.format("%.2f", prix) + " €  Quantité: " + quantite;
     }
 }

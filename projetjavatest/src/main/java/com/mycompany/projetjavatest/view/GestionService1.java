@@ -11,6 +11,7 @@ import com.mycompany.projetjavatest.dao.MenuDAO;
 import com.mycompany.projetjavatest.domain.Table;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -29,6 +30,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 import javax.swing.SwingConstants;
 
@@ -45,8 +48,9 @@ public class GestionService1 extends javax.swing.JFrame {
     public int statuactual=0 ;
     public int placeactual ;
     private JPanel commandPanel;
-    
-    //pour sauvegarder le command
+    public float totalToPay;
+    private JTextField jTextFieldAmountDue;
+
 
    
     /**
@@ -59,6 +63,7 @@ public class GestionService1 extends javax.swing.JFrame {
           // Initialize tableList first
         TableDAO tableDAO = new TableDAO("table.txt"); // Créer une instance de TableDAO avec le chemin du fichier
         tableList = tableDAO.initializeTableList();
+        CommandDAO commandDAO = new CommandDAO();
 
         initComponents();
          jPanelPlan.setVisible(true);//afficher le panel de plan de menu de restaurant
@@ -83,8 +88,18 @@ public class GestionService1 extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jPanelLegende = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabelPlandurestarant = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         jPanelPlan = new javax.swing.JPanel();
-        jButtonDeconnexion = new javax.swing.JButton();
+        jScrollPaneMenu = new javax.swing.JScrollPane();
+        jScrollPaneCommand = new javax.swing.JScrollPane();
         jPanelMenudugestion = new javax.swing.JPanel();
         jButtonQuitter = new javax.swing.JButton();
         jButtonCommender = new javax.swing.JButton();
@@ -93,6 +108,9 @@ public class GestionService1 extends javax.swing.JFrame {
         jLabelMenu = new javax.swing.JLabel();
         jButtonReservation = new javax.swing.JButton();
         jPanelStatusdetable = new javax.swing.JPanel();
+        jPanelcommandcomfirm = new javax.swing.JPanel();
+        jButtonannuler = new javax.swing.JButton();
+        jButtoncomfirm = new javax.swing.JButton();
         jPanelstatus = new javax.swing.JPanel();
         jLabelIDtable = new javax.swing.JLabel();
         jPanelReservation = new javax.swing.JPanel();
@@ -105,24 +123,11 @@ public class GestionService1 extends javax.swing.JFrame {
         jTextNom = new javax.swing.JTextField();
         jTextTelephone = new javax.swing.JTextField();
         jFormattedDate = new javax.swing.JFormattedTextField();
-        jScrollPaneMenu = new javax.swing.JScrollPane();
-        jScrollPaneCommand = new javax.swing.JScrollPane();
-        jPanelcommandcomfirm = new javax.swing.JPanel();
-        jButtonannuler = new javax.swing.JButton();
-        jButtoncomfirm = new javax.swing.JButton();
-        jPanelLegende = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabelPlandurestarant = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
         jPanelchoixpayement = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonEnespece = new javax.swing.JButton();
+        jButtonPayCB = new javax.swing.JButton();
+        jButtonFacture = new javax.swing.JButton();
+        jButtonDeconnexion = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -147,33 +152,130 @@ public class GestionService1 extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(900, 740));
+        setMinimumSize(new java.awt.Dimension(0, 740));
         setSize(new java.awt.Dimension(800, 600));
 
+        jPanelLegende.setBackground(new java.awt.Color(204, 255, 204));
+
+        jPanel5.setBackground(java.awt.Color.cyan);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 28, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 17, Short.MAX_VALUE)
+        );
+
+        jLabel1.setText("diponible");
+
+        jPanel6.setBackground(java.awt.Color.yellow);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 22, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 17, Short.MAX_VALUE)
+        );
+
+        jLabel2.setText("réservé");
+
+        jPanel7.setBackground(java.awt.Color.red);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 22, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 17, Short.MAX_VALUE)
+        );
+
+        jLabel3.setText("occupé");
+
+        jLabelPlandurestarant.setText("Plan du restarant");
+
+        javax.swing.GroupLayout jPanelLegendeLayout = new javax.swing.GroupLayout(jPanelLegende);
+        jPanelLegende.setLayout(jPanelLegendeLayout);
+        jPanelLegendeLayout.setHorizontalGroup(
+            jPanelLegendeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelLegendeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelPlandurestarant, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addGap(42, 42, 42))
+        );
+        jPanelLegendeLayout.setVerticalGroup(
+            jPanelLegendeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLegendeLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelLegendeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addGroup(jPanelLegendeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabelPlandurestarant, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel1)))
+                .addGap(21, 21, 21))
+        );
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel3.setMinimumSize(new java.awt.Dimension(100, 790));
+        jPanel3.setPreferredSize(new java.awt.Dimension(1500, 790));
+
         jPanelPlan.setBackground(new java.awt.Color(255, 204, 204));
-        jPanelPlan.setMaximumSize(new java.awt.Dimension(500, 486));
-        jPanelPlan.setMinimumSize(new java.awt.Dimension(500, 486));
-        jPanelPlan.setPreferredSize(new java.awt.Dimension(588, 486));
+        jPanelPlan.setMaximumSize(new java.awt.Dimension(500, 650));
+        jPanelPlan.setMinimumSize(new java.awt.Dimension(500, 650));
+        jPanelPlan.setPreferredSize(new java.awt.Dimension(300, 700));
 
         javax.swing.GroupLayout jPanelPlanLayout = new javax.swing.GroupLayout(jPanelPlan);
         jPanelPlan.setLayout(jPanelPlanLayout);
         jPanelPlanLayout.setHorizontalGroup(
             jPanelPlanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 588, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanelPlanLayout.setVerticalGroup(
             jPanelPlanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 642, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jButtonDeconnexion.setText("Déconnexion");
-        jButtonDeconnexion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDeconnexionActionPerformed(evt);
-            }
-        });
+        jScrollPaneMenu.setBackground(new java.awt.Color(153, 255, 102));
+        jScrollPaneMenu.setForeground(new java.awt.Color(102, 255, 102));
+        jScrollPaneMenu.setMaximumSize(new java.awt.Dimension(450, 650));
+        jScrollPaneMenu.setMinimumSize(new java.awt.Dimension(100, 650));
+        jScrollPaneMenu.setName(""); // NOI18N
+        jScrollPaneMenu.setPreferredSize(new java.awt.Dimension(350, 650));
+
+        jScrollPaneCommand.setBackground(new java.awt.Color(102, 255, 102));
+        jScrollPaneCommand.setForeground(new java.awt.Color(102, 255, 102));
+        jScrollPaneCommand.setMaximumSize(new java.awt.Dimension(650, 650));
+        jScrollPaneCommand.setMinimumSize(new java.awt.Dimension(270, 650));
+        jScrollPaneCommand.setPreferredSize(new java.awt.Dimension(100, 650));
 
         jPanelMenudugestion.setBackground(new java.awt.Color(204, 255, 255));
+        jPanelMenudugestion.setPreferredSize(new java.awt.Dimension(200, 249));
 
         jButtonQuitter.setText("Quitter");
         jButtonQuitter.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -222,22 +324,22 @@ public class GestionService1 extends javax.swing.JFrame {
         jPanelMenudugestionLayout.setHorizontalGroup(
             jPanelMenudugestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMenudugestionLayout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addComponent(jLabelMenu)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanelMenudugestionLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(jPanelMenudugestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonQuitter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanelMenudugestionLayout.createSequentialGroup()
                         .addGroup(jPanelMenudugestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                            .addComponent(jButtonStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButtonCommender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanelMenudugestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonAddtion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonReservation, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))))
+                            .addComponent(jButtonReservation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMenudugestionLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelMenu)
+                .addGap(112, 112, 112))
         );
         jPanelMenudugestionLayout.setVerticalGroup(
             jPanelMenudugestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,19 +360,56 @@ public class GestionService1 extends javax.swing.JFrame {
         );
 
         jPanelStatusdetable.setBackground(new java.awt.Color(255, 255, 51));
-        jPanelStatusdetable.setMaximumSize(new java.awt.Dimension(100, 200));
-        jPanelStatusdetable.setMinimumSize(new java.awt.Dimension(100, 200));
-        jPanelStatusdetable.setPreferredSize(new java.awt.Dimension(100, 200));
+        jPanelStatusdetable.setMaximumSize(new java.awt.Dimension(100, 300));
+        jPanelStatusdetable.setMinimumSize(new java.awt.Dimension(100, 300));
+        jPanelStatusdetable.setPreferredSize(new java.awt.Dimension(100, 300));
 
         javax.swing.GroupLayout jPanelStatusdetableLayout = new javax.swing.GroupLayout(jPanelStatusdetable);
         jPanelStatusdetable.setLayout(jPanelStatusdetableLayout);
         jPanelStatusdetableLayout.setHorizontalGroup(
             jPanelStatusdetableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 288, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanelStatusdetableLayout.setVerticalGroup(
             jPanelStatusdetableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanelcommandcomfirm.setBackground(new java.awt.Color(204, 255, 204));
+
+        jButtonannuler.setText("Annuler Comm.");
+        jButtonannuler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonannulerActionPerformed(evt);
+            }
+        });
+
+        jButtoncomfirm.setText("Valider Comm.");
+        jButtoncomfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtoncomfirmActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelcommandcomfirmLayout = new javax.swing.GroupLayout(jPanelcommandcomfirm);
+        jPanelcommandcomfirm.setLayout(jPanelcommandcomfirmLayout);
+        jPanelcommandcomfirmLayout.setHorizontalGroup(
+            jPanelcommandcomfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelcommandcomfirmLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jButtonannuler, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtoncomfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelcommandcomfirmLayout.setVerticalGroup(
+            jPanelcommandcomfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelcommandcomfirmLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelcommandcomfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonannuler)
+                    .addComponent(jButtoncomfirm))
+                .addGap(18, 18, 18))
         );
 
         jPanelstatus.setBackground(new java.awt.Color(255, 153, 153));
@@ -374,14 +513,16 @@ public class GestionService1 extends javax.swing.JFrame {
         jPanelstatus.setLayout(jPanelstatusLayout);
         jPanelstatusLayout.setHorizontalGroup(
             jPanelstatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelstatusLayout.createSequentialGroup()
+            .addGroup(jPanelstatusLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelstatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelchoixletemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelstatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabelIDtable)
-                        .addComponent(jPanelReservation, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18))
+                .addComponent(jLabelIDtable)
+                .addGap(213, 213, 213))
+            .addGroup(jPanelstatusLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanelstatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanelchoixletemp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelReservation, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(0, 27, Short.MAX_VALUE))
         );
         jPanelstatusLayout.setVerticalGroup(
             jPanelstatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -390,185 +531,109 @@ public class GestionService1 extends javax.swing.JFrame {
                 .addComponent(jLabelIDtable)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelReservation, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelchoixletemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jScrollPaneMenu.setBackground(new java.awt.Color(153, 255, 102));
-        jScrollPaneMenu.setForeground(new java.awt.Color(102, 255, 102));
-        jScrollPaneMenu.setMaximumSize(new java.awt.Dimension(270, 650));
-        jScrollPaneMenu.setMinimumSize(new java.awt.Dimension(270, 650));
-
-        jScrollPaneCommand.setBackground(new java.awt.Color(102, 255, 102));
-        jScrollPaneCommand.setForeground(new java.awt.Color(102, 255, 102));
-        jScrollPaneCommand.setMaximumSize(new java.awt.Dimension(270, 650));
-        jScrollPaneCommand.setMinimumSize(new java.awt.Dimension(270, 650));
-
-        jPanelcommandcomfirm.setBackground(new java.awt.Color(204, 255, 204));
-
-        jButtonannuler.setText("Annuler Comm.");
-        jButtonannuler.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonannulerActionPerformed(evt);
-            }
-        });
-
-        jButtoncomfirm.setText("Valider Comm.");
-        jButtoncomfirm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtoncomfirmActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanelcommandcomfirmLayout = new javax.swing.GroupLayout(jPanelcommandcomfirm);
-        jPanelcommandcomfirm.setLayout(jPanelcommandcomfirmLayout);
-        jPanelcommandcomfirmLayout.setHorizontalGroup(
-            jPanelcommandcomfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelcommandcomfirmLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButtonannuler, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtoncomfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanelcommandcomfirmLayout.setVerticalGroup(
-            jPanelcommandcomfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelcommandcomfirmLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelcommandcomfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonannuler)
-                    .addComponent(jButtoncomfirm))
-                .addGap(18, 18, 18))
-        );
-
-        jPanelLegende.setBackground(new java.awt.Color(204, 255, 204));
-
-        jPanel5.setBackground(java.awt.Color.cyan);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 28, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 17, Short.MAX_VALUE)
-        );
-
-        jLabel1.setText("diponible");
-
-        jPanel6.setBackground(java.awt.Color.yellow);
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 22, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 17, Short.MAX_VALUE)
-        );
-
-        jLabel2.setText("réservé");
-
-        jPanel7.setBackground(java.awt.Color.red);
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 22, Short.MAX_VALUE)
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 17, Short.MAX_VALUE)
-        );
-
-        jLabel3.setText("occupé");
-
-        jLabelPlandurestarant.setText("Plan du restarant");
-
-        javax.swing.GroupLayout jPanelLegendeLayout = new javax.swing.GroupLayout(jPanelLegende);
-        jPanelLegende.setLayout(jPanelLegendeLayout);
-        jPanelLegendeLayout.setHorizontalGroup(
-            jPanelLegendeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelLegendeLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelPlandurestarant, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(193, 193, 193)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-        jPanelLegendeLayout.setVerticalGroup(
-            jPanelLegendeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLegendeLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelLegendeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addGroup(jPanelLegendeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabelPlandurestarant, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel1)))
-                .addGap(21, 21, 21))
-        );
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 111, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
         jPanelchoixpayement.setBackground(new java.awt.Color(255, 153, 0));
 
-        jButton1.setText("VIP(85%)");
+        jButtonEnespece.setText("En espèse");
+        jButtonEnespece.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEnespeceActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("En espèse(95%)");
+        jButtonPayCB.setText("Carte Bleue");
+        jButtonPayCB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPayCBActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("CB(100%)");
+        jButtonFacture.setText("Facture");
 
         javax.swing.GroupLayout jPanelchoixpayementLayout = new javax.swing.GroupLayout(jPanelchoixpayement);
         jPanelchoixpayement.setLayout(jPanelchoixpayementLayout);
         jPanelchoixpayementLayout.setHorizontalGroup(
             jPanelchoixpayementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelchoixpayementLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(jPanelchoixpayementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addGap(21, 21, 21)
+                .addGroup(jPanelchoixpayementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButtonFacture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanelchoixpayementLayout.createSequentialGroup()
+                        .addComponent(jButtonEnespece, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonPayCB, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelchoixpayementLayout.setVerticalGroup(
             jPanelchoixpayementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelchoixpayementLayout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelchoixpayementLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelchoixpayementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonPayCB, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .addComponent(jButtonEnespece, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonFacture, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jButtonDeconnexion.setText("Déconnexion");
+        jButtonDeconnexion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeconnexionActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jPanelPlan, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPaneMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPaneCommand, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanelStatusdetable, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                    .addComponent(jPanelcommandcomfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelstatus, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                    .addComponent(jPanelMenudugestion, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                    .addComponent(jPanelchoixpayement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jButtonDeconnexion, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButtonDeconnexion, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPaneCommand, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
+                            .addComponent(jScrollPaneMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanelPlan, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(jPanelMenudugestion, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanelStatusdetable, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanelcommandcomfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanelstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanelchoixpayement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -576,69 +641,21 @@ public class GestionService1 extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanelLegende, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(748, 748, 748)
-                        .addComponent(jButtonDeconnexion))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jPanelPlan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPaneMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPaneCommand, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanelStatusdetable, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanelMenudugestion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanelcommandcomfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanelstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanelchoixpayement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(433, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1514, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jPanelLegende, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(816, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jButtonDeconnexion)
-                        .addGap(22, 22, 22))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addComponent(jPanelLegende, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanelMenudugestion, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanelStatusdetable, javax.swing.GroupLayout.PREFERRED_SIZE, 122, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanelcommandcomfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanelstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanelchoixpayement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(216, 216, 216))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jScrollPaneCommand, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jPanelPlan, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(jScrollPaneMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addComponent(jPanelLegende, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 804, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -652,9 +669,10 @@ public class GestionService1 extends javax.swing.JFrame {
             jPanelPlan.setVisible(true);//afficher le plan du restaurant
             jPanelStatusdetable.setVisible(true);//cacher status de table est invisible
             jPanelstatus.setVisible(false);//cacher la panel de reservation
-            jScrollPaneMenu.setVisible(false);//
-            jScrollPaneCommand.setVisible(false);//
-            jPanelcommandcomfirm.setVisible(false);//
+            jScrollPaneMenu.setVisible(false);//cacher
+            jScrollPaneCommand.setVisible(false);//cacher
+            jPanelcommandcomfirm.setVisible(false);//cacher
+             jPanelchoixpayement.setVisible(false);//cacher
             
             
           
@@ -684,7 +702,9 @@ public class GestionService1 extends javax.swing.JFrame {
          jScrollPaneMenu.setVisible(false);//cacher
          jScrollPaneCommand.setVisible(false);//cacher
          jPanelcommandcomfirm.setVisible(false);//cacher
-         
+          jPanelchoixpayement.setVisible(false);//cacher
+          
+          
          //jPanelReservation.setVisible(true);//afficher la panel de reservation de table
         jPanelstatus.setVisible(true);
         jPanelStatusdetable.setVisible(false);//status de table est invisible
@@ -781,17 +801,20 @@ public class GestionService1 extends javax.swing.JFrame {
     //----------------start de commander
     private void jButtonCommenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCommenderActionPerformed
         // TODO add your handling code here:
-        
+              // set jScrollPaneCommand width 490
+        adjustScrollPaneSize(jScrollPaneCommand, 490, jScrollPaneCommand.getHeight());
         
         commandPanel = new JPanel(new GridBagLayout());
         jScrollPaneCommand.setViewportView(commandPanel);
         jPanelPlan.setVisible(false);//cacher
         jPanelstatus.setVisible(false);//cacher
-        
+         jPanelchoixpayement.setVisible(false);//cacher
+         
+         
         jScrollPaneMenu.setVisible(true);//afficher le scrollpanel menu
         jPanelcommandcomfirm.setVisible(true);//afficher le panel de valider le  commend
         jScrollPaneCommand.setVisible(true);//afficher le scrollpanel commend
-        
+       
      // Effacer le contenu précédent du panneau de commande
       
     
@@ -860,29 +883,189 @@ public class GestionService1 extends javax.swing.JFrame {
                     tableList = tableDAO.initializeTableList();
                     displaytables(); 
                 }
-    }
+        }
 
     }//GEN-LAST:event_jButtoncomfirmActionPerformed
 
+    
+    private void adjustScrollPaneSize(JScrollPane scrollPane, int newWidth, int newHeight){
+    // get Dimension
+      Dimension newSize = new Dimension(newWidth, newHeight);
+    // creer Dimension object
+    scrollPane.setPreferredSize(newSize);
+    scrollPane.setMinimumSize(newSize);
+    scrollPane.setSize(newSize);
+    
+    //
+    scrollPane.revalidate();
+    scrollPane.repaint();
+    
+    // 
+    Container parent = scrollPane.getParent();
+        if (parent != null) {
+            parent.revalidate();
+            parent.repaint();
+        }
+    }
+    
     private void jButtonAddtionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddtionActionPerformed
         // TODO add your handling code here:
         //afficher tous les command et choisir un method de payment 
-        jScrollPaneCommand.setVisible(true);
-        jPanelPlan.setVisible(false);
-        jPanelcommandcomfirm.setVisible(false);
-        jPanelchoixpayement.setVisible(true);
+        // set jScrollPaneCommand width 750
+        adjustScrollPaneSize(jScrollPaneCommand, 750, jScrollPaneCommand.getHeight());
         
+       jPanelPlan.setVisible(false);//cacher
+        jPanelcommandcomfirm.setVisible(false);//cacher
+        jScrollPaneMenu.setVisible(false); //cacher
+        jPanelstatus.setVisible(false); //cacher
+        
+        jPanelchoixpayement.setVisible(true);//afficher le panel de payement
+        jScrollPaneCommand.setVisible(true);//afficher le panel de command
+        jPanelStatusdetable.setVisible(true);//afficher le panel de table que vous choisissiez 
+        
+         if (tableactual == 0 && statuactual==0) {//il faut choisir un talbe 
+             
+             JOptionPane.showMessageDialog(this, "Vous devez choisir une table pour imprimer l'addition!");
+             
+        }
         // Initialize CommandDAO
         CommandDAO commandDAO = new CommandDAO();
         // Create the command panel with commands from the file
         JPanel commandPanel = commandDAO.createCommandPanel("command.txt",tableactual);
          // Set the command panel in JScrollPane
         jScrollPaneCommand.setViewportView(commandPanel);
+         // Display total to pay
+            totalToPay = commandDAO.getTotalToPay();
+            JOptionPane.showMessageDialog(this, "Total à payer: " + String.format("%.2f €", totalToPay), "Total Amount", JOptionPane.INFORMATION_MESSAGE);
         
         
         
         
     }//GEN-LAST:event_jButtonAddtionActionPerformed
+
+    private void jButtonPayCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPayCBActionPerformed
+        // TODO add your handling code here:
+        
+        //payer par carte bleue , 100 % sans discount
+         
+        int option = JOptionPane.showConfirmDialog(
+        this, 
+        "Vous devez payer: " + String.format("%.2f €", totalToPay) + "\nVoulez-vous confirmer le paiement ?", 
+        "Confirmation du paiement", 
+        JOptionPane.OK_CANCEL_OPTION, 
+        JOptionPane.INFORMATION_MESSAGE
+        );
+            // Handle user choice
+        if (option == JOptionPane.OK_OPTION) {
+            // User clicked "OK", proceed with payment
+            JOptionPane.showMessageDialog(this, "Paiement confirmé !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+
+            // Initialize CommandDAO
+            CommandDAO commandDAO = new CommandDAO();
+
+            // Update payment status for the current table
+            commandDAO.updatePaymentStatus("command.txt", tableactual);
+            
+            // Refresh the command panel to reflect the updated payment status
+            JPanel commandPanel = commandDAO.createCommandPanel("command.txt", tableactual);
+            jScrollPaneCommand.setViewportView(commandPanel);
+
+            // Optional: Clear the current command panel if needed
+            jScrollPaneCommand.revalidate();
+            jScrollPaneCommand.repaint();
+            
+             TableDAO tableDAO = new TableDAO("table.txt");
+             boolean updated = tableDAO.updateTable(tableactual, 1, placeactual,null,null,null);
+              if (updated) {
+                    tableList = tableDAO.initializeTableList();
+                    displaytables(); 
+                }
+
+        // Save updated commands to file (Optional if updates are saved directly in updatePaymentStatus)
+        // commandDAO.saveCommandsToFile("command.txt", tableactual);
+            
+        } else if (option == JOptionPane.CANCEL_OPTION) {
+            // User clicked "Cancel", cancel payment
+            JOptionPane.showMessageDialog(this, "Paiement annulé.", "Annulation", JOptionPane.INFORMATION_MESSAGE);
+            // Implement cancellation logic here (e.g., go back to the previous state)
+        }
+        
+        
+    }//GEN-LAST:event_jButtonPayCBActionPerformed
+
+    private void jButtonEnespeceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnespeceActionPerformed
+        // TODO add your handling code here:
+        //payement en espece , calculer  le monnaie
+        // Récupérer le montant à payer (par exemple, depuis un champ texte)
+        // Récupérer le montant à payer (par exemple, depuis un champ texte)
+       // 
+    if (jTextFieldAmountDue == null) {
+        jTextFieldAmountDue = new JTextField();
+    }
+
+    // get totalprix
+             //CommandDAO commandDAO = new CommandDAO();
+           // totalToPay = commandDAO.getTotalToPay(); // utlise commandDAO pour un nouveau totalprix
+            jTextFieldAmountDue.setText(String.valueOf(totalToPay));  //envoyer le prix dans le text 
+            
+
+               try {
+                // Vérifier si le champ n'est pas vide et contient un nombre valide
+                if (jTextFieldAmountDue.getText() != null && !jTextFieldAmountDue.getText().isEmpty()) {
+                    double amountDue = totalToPay; // Montant à payer
+
+                    // Demander à l'utilisateur de saisir le montant payé
+                    String amountPaidStr = JOptionPane.showInputDialog(this, "Vous devez payer "+totalToPay+ "€ \n"+"Entrez le montant payé en espèces : ", "Paiement en espèces", JOptionPane.QUESTION_MESSAGE);
+
+                    // Vérifier si l'utilisateur a entré une valeur ou annulé
+                    if (amountPaidStr != null && !amountPaidStr.isEmpty()) {
+                        double amountPaid = Double.parseDouble(amountPaidStr); // Convertir l'entrée en un nombre
+
+                        // Calculer le monnaie
+                        double change = amountPaid - amountDue;
+                        String formattedChange = String.format("%.2f", change);
+
+                        // Vérifier si le montant payé est suffisant
+                        if (change < 0) {
+                            JOptionPane.showMessageDialog(this, "Le montant payé est insuffisant !", "Erreur", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        } else {
+                            // Afficher le monnaie
+                            JOptionPane.showMessageDialog(this, "Le monnaie à rendre est : " + formattedChange + " €", "Monnaie", JOptionPane.INFORMATION_MESSAGE);
+                            
+                             // Initialize CommandDAO
+                            CommandDAO commandDAO = new CommandDAO();
+
+                            // Update payment status for the current table
+                            commandDAO.updatePaymentStatus("command.txt", tableactual);
+
+                            // Refresh the command panel to reflect the updated payment status
+                            JPanel commandPanel = commandDAO.createCommandPanel("command.txt", tableactual);
+                            jScrollPaneCommand.setViewportView(commandPanel);
+
+                            // Optional: Clear the current command panel if needed
+                            jScrollPaneCommand.revalidate();
+                            jScrollPaneCommand.repaint();
+
+                             TableDAO tableDAO = new TableDAO("table.txt");
+                             boolean updated = tableDAO.updateTable(tableactual, 1, placeactual,null,null,null);
+                              if (updated) {
+                                    tableList = tableDAO.initializeTableList();
+                                    displaytables(); 
+                                }
+
+                        }
+                    } else {
+                        // L'utilisateur a annulé ou n'a rien entré
+                        JOptionPane.showMessageDialog(this, "Le paiement a été annulé.", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Le champ du montant à payer est vide ou invalide.", "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Veuillez entrer un montant valide.", "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+    }//GEN-LAST:event_jButtonEnespeceActionPerformed
   //-------------------------fin de command
     
     
@@ -947,6 +1130,7 @@ public class GestionService1 extends javax.swing.JFrame {
                         showDetailsInPanel(table); // afficher les details des que clic un table 
                     }
                     else if(jPanelReservation.isVisible()){
+                        showDetailsInPanel(table); 
                         reservation(table);//  afficher les status des que clic un table 
                     }
                 }
@@ -1029,13 +1213,13 @@ public class GestionService1 extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonAddtion;
     private javax.swing.JButton jButtonAnnulerRDV;
     private javax.swing.JButton jButtonCommender;
     private javax.swing.JButton jButtonDeconnexion;
+    private javax.swing.JButton jButtonEnespece;
+    private javax.swing.JButton jButtonFacture;
+    private javax.swing.JButton jButtonPayCB;
     private javax.swing.JButton jButtonQuitter;
     private javax.swing.JButton jButtonReservation;
     private javax.swing.JButton jButtonStatus;

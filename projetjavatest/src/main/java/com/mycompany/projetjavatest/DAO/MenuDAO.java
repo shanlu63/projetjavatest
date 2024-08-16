@@ -132,7 +132,7 @@ public class MenuDAO {
             menuPanel.add(nameLabel, gbc);
 
             gbc.gridx = 2;
-            JLabel priceLabel = new JLabel(String.format("%.2f €", menu.getPrix()));
+            JLabel priceLabel = new JLabel(String.format("%.2f €(HT)", menu.getPrix()));
             priceLabel.setFont(new Font("Arial", Font.BOLD, 15));//grand taille
             menuPanel.add(priceLabel, gbc);
 

@@ -23,6 +23,8 @@ import java.util.List;
  * @author shan
  */
 public class Command {
+
+   
     private int idCommand;
     private int idTable;
     private String plate;
@@ -141,7 +143,7 @@ public class Command {
         return payement;
     }
 
-   
+  
 
    
 }
