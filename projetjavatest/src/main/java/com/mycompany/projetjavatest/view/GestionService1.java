@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -992,13 +993,18 @@ public class GestionService1 extends javax.swing.JFrame {
             jScrollPaneCommand.revalidate();
             jScrollPaneCommand.repaint();
             
-             // Save the Facture
-            Facture facture = new Facture(commandDAO.getCommandByTable("command.txt", tableactual), "carte bleue");
+             // Save the Facture :public Facture(float totalPrixHT, float totalTVA, float totalPrixTTC, Date date, String paymentMethod)
+            Facture facture = new Facture(  totalToPay / 1.2f,    // Total HT
+            totalToPay / 6.0f,    // Total TVA
+            totalToPay,           // Total TTC
+            new Date(),           // Current date
+            "carte bleue"         // Payment method
+            );
             FactureDAO factureDAO = new FactureDAO();
             factureDAO.saveFacture(facture);
-           
+           System.out.println("Facture saved: " + facture);
         // Save updated commands to file (Optional if updates are saved directly in updatePaymentStatus)
-        // commandDAO.saveCommandsToFile("command.txt", tableactual);
+        
             
         } else if (option == JOptionPane.CANCEL_OPTION) {
             // User clicked "Cancel", cancel payment
@@ -1083,10 +1089,15 @@ public class GestionService1 extends javax.swing.JFrame {
                             
                             
                             // Save the Facture
-                            Facture facture = new Facture(commandDAO.getCommandByTable("facture.txt", tableactual), "en espèces");
-                            FactureDAO factureDAO = new FactureDAO();
-                            factureDAO.saveFacture(facture);
-
+                             Facture facture = new Facture(  totalToPay / 1.2f,    // Total HT
+                                totalToPay / 6.0f,    // Total TVA
+                                totalToPay,           // Total TTC
+                                new Date(),           // Current date
+                                "carte bleue"         // Payment method
+                                );
+                                FactureDAO factureDAO = new FactureDAO();
+                                factureDAO.saveFacture(facture);
+                               System.out.println("Facture saved: " + facture);
 
                         }
                     } else {
@@ -1108,16 +1119,22 @@ public class GestionService1 extends javax.swing.JFrame {
         FactureDAO factureDAO = new FactureDAO();
 
         // Read the last Facture entry from the file (optional implementation for reading the last entry)
-        String lastFacture = factureDAO.readLastFacture();
+        Facture lastFacture = factureDAO.readLastFacture();
 
+       
         // Display the last Facture in a dialog
         if (lastFacture != null) {
-            JOptionPane.showMessageDialog(this, "Dernière facture:\n" + lastFacture, "Facture", JOptionPane.INFORMATION_MESSAGE);
+            String factureDetails = lastFacture.toString();
+            JOptionPane.showMessageDialog(this, "Dernière facture:\n" + factureDetails, "Facture", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "Aucune facture trouvée.", "Facture", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButtonFactureActionPerformed
-  //-------------------------fin de command
+    
+    
+
+
+//-------------------------fin de command
     
     
   
