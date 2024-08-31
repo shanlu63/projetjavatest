@@ -1,0 +1,8 @@
+202400001;10,53;2,11;12,64;17/08/2024-12:39;carte bleue
+202400001;23,82;4,76;28,59;17/08/2024-12:55;carte bleue
+Facture numéro:202400001;
+Prix HT en total :33,67 € ;
+Prix TVA :6,74 € ;
+Prix TTC en total :40,41 € ;
+Date :31/08/2024-14:20;
+Payement méthod :carte bleue

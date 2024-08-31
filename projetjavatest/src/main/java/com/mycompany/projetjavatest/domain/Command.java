@@ -7,11 +7,10 @@ package com.mycompany.projetjavatest.domain;
 
 
 
-import java.util.Objects;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Classe représentant une commande.
@@ -126,7 +125,7 @@ public class Command {
     }
 
     // Méthodes utilitaires
-    @Override
+    /*@Override
     public String toString() {
         return "Command{" +
                 "idCommand :" + idCommand +
@@ -137,7 +136,19 @@ public class Command {
                 ", prixTVA : " + prixTVA +
                 ", payement : " + payement +
                 '}';
-    }
+    }*/
+    @Override
+    public String toString() {
+        return idCommand + ";" +
+               idTable + ";" +
+               plate + ";" +
+               quantity + ";" +
+               date + ";" +
+               prixTotalHT + ";" +
+               prixTVA + ";" +
+               payement;
+    }   
+
 
     public boolean isPayement() {
         return payement;

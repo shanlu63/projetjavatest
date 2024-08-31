@@ -4,65 +4,74 @@
  */
 package com.mycompany.projetjavatest.domain;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
-public class Facture {
-    private static int nextIdFacture = 202400001; // le 1 e  facture ID 
+public class Facture { // Define the file name
+    // Define the file name
+    private static int nextIdFacture = 202400001; // Initial facture ID
     private int idFacture;
-    private List<Command> commands; // Command
-    private float prixTotalHT;
-    private float prixTVA;
-    private float prixTotalTTC;
+    private float totalPrixHT;
+    private float totalTVA;
+    private float totalPrixTTC;
     private Date date;
-    private String payement; // payement :  en espece ou carte bleue
+    private String paymentMethod;
 
-    // constructeur 
-    public Facture(Command command, String payement) {
-        this.idFacture = nextIdFacture++; // 
-        this.commands = new ArrayList<>(); // 
-        this.commands.add(command); // 
-        this.payement = payement;
-        this.date = new Date(); // 
-        calculateTotals(); // 
+    // Default constructor
+    public Facture() {
+        this.idFacture = nextIdFacture++;
+        this.date = new Date(); // Set to current date
+    }
+    
+    // Parameterized constructor
+    public Facture(float totalPrixHT, float totalTVA, float totalPrixTTC, Date date, String paymentMethod) {
+        this.idFacture = nextIdFacture++;
+        this.totalPrixHT = totalPrixHT;
+        this.totalTVA = totalTVA;
+        this.totalPrixTTC = totalPrixTTC;
+        this.date = (date != null) ? date : new Date(); // Use provided date or current date
+        validatePayment(paymentMethod);
+        this.paymentMethod = paymentMethod;
     }
 
-    // calculateTotals HT、TVA TTC
-    private void calculateTotals() {
-        this.prixTotalHT = 0;
-        this.prixTVA = 0;
-        for (Command command : commands) {
-            this.prixTotalHT += command.getPrixTotalHT();
-            this.prixTVA += command.getPrixTVA();
+    private void validatePayment(String paymentMethod) {
+        // Validate payment method
+        if (!"en espèces".equals(paymentMethod) && !"carte bleue".equals(paymentMethod)) {
+            throw new IllegalArgumentException("Invalid payment method: " + paymentMethod);
         }
-        this.prixTotalTTC = this.prixTotalHT + this.prixTVA;
     }
 
-    // Getter  Setter 
+    // Getters and setters
     public int getIdFacture() {
         return idFacture;
     }
 
-    public List<Command> getCommands() {
-        return commands;
+    public void setIdFacture(int idFacture) {
+        this.idFacture = idFacture;
     }
 
-    public void setCommands(List<Command> commands) {
-        this.commands = commands;
-        calculateTotals(); // mise en jour 
+    public float getTotalPrixHT() {
+        return totalPrixHT;
     }
 
-    public float getPrixTotalHT() {
-        return prixTotalHT;
+    public void setTotalPrixHT(float totalPrixHT) {
+        this.totalPrixHT = totalPrixHT;
     }
 
-    public float getPrixTVA() {
-        return prixTVA;
+    public float getTotalTVA() {
+        return totalTVA;
     }
 
-    public float getPrixTotalTTC() {
-        return prixTotalTTC;
+    public void setTotalTVA(float totalTVA) {
+        this.totalTVA = totalTVA;
+    }
+
+    public float getTotalPrixTTC() {
+        return totalPrixTTC;
+    }
+
+    public void setTotalPrixTTC(float totalPrixTTC) {
+        this.totalPrixTTC = totalPrixTTC;
     }
 
     public Date getDate() {
@@ -73,25 +82,26 @@ public class Facture {
         this.date = date;
     }
 
-    public String getPayement() {
-        return payement;
+    public String getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setPayement(String payement) {
-        this.payement = payement;
+    public void setPaymentMethod(String paymentMethod) {
+        validatePayment(paymentMethod);
+        this.paymentMethod = paymentMethod;
     }
 
     @Override
     public String toString() {
-        return "Facture{" +
-                "idFacture=" + idFacture +
-                ", commands=" + commands +
-                ", prixTotalHT=" + prixTotalHT +
-                ", prixTVA=" + prixTVA +
-                ", prixTotalTTC=" + prixTotalTTC +
-                ", date=" + date +
-                ", payement='" + payement + '\'' +
-                '}';
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy-HH:mm");
+        return  "Facture numéro:"+idFacture + ";\n" +
+               "Prix HT en total :" + String.format("%.2f", totalPrixHT) + " € ;\n" + 
+               "Prix TVA :" +String.format("%.2f", totalTVA) + " € ;\n" +
+               "Prix TTC en total :" +String.format("%.2f", totalPrixTTC) + " € ;\n" +
+               "Date :" +dateFormat.format(date) + ";\n" +
+               "Payement méthod :" + paymentMethod;
     }
+
+
 }
 
