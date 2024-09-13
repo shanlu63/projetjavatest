@@ -16,6 +16,8 @@ public class InterfaceParametrage extends javax.swing.JFrame {
     public InterfaceParametrage(String job) {
         this.job=job;
         initComponents();
+         setLocationRelativeTo(null);
+         
     }
     
     

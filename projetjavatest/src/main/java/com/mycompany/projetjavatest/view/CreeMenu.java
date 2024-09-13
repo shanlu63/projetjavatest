@@ -32,6 +32,7 @@ public class CreeMenu extends javax.swing.JFrame {
     Menu NouveauMenu;
     public CreeMenu() {
         initComponents();
+         setLocationRelativeTo(null);
         menuList=loadMenuData("menu.txt");
     }
 public static List<Menu> loadMenuData(String fileName) {

@@ -20,8 +20,7 @@ import javax.swing.JTable;
 public class Projetjavatest {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
-        System.out.println("c'est le projet java test par Shan LU et kayiba");
+        
         System.out.println("c'est le projet java test par Shan LU et kayiba");
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -33,19 +32,7 @@ public class Projetjavatest {
                     Logger.getLogger(Projetjavatest.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
-                // Create a dummy JTable for testing
-        /*String[] columnNames = {"ID", "Name", "Price"};
-        Object[][] data = {
-            {1, "Pizza", 9.99},
-            {2, "Burger", 5.49},
-            {3, "Pasta", 7.99}
-        };
-
-        JTable table = new JTable(data, columnNames);
-        String filePath = "command.txt";
-
-        CommandDAO dao = new CommandDAO();
-        dao.writeCommandsToFile(table, filePath);*/
+               
                 }
             });
 

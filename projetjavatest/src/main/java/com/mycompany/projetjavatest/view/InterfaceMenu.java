@@ -18,11 +18,14 @@ public class InterfaceMenu extends javax.swing.JFrame {
         this.job=job;
 
         initComponents();
+        
+         setLocationRelativeTo(null);
     }
     public InterfaceMenu() {
         this.job= "Directeur";
 
         initComponents();
+         setLocationRelativeTo(null);
     }
   
 

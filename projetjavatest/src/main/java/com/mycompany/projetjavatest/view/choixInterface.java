@@ -18,11 +18,11 @@ public class choixInterface extends javax.swing.JFrame {
     public choixInterface(String job) {
         this.job=job;
         initComponents();
+        setLocationRelativeTo(null);
     }
-
+    //constructeur
     private choixInterface() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+          }
 
     /**
      * This method is called from within the constructor to initialize the form.

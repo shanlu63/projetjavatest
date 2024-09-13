@@ -21,6 +21,7 @@ public class GestionModificationMenu extends javax.swing.JFrame {
     public GestionModificationMenu() {
        
         initComponents();
+         setLocationRelativeTo(null);
          fill_menu();
     }
 

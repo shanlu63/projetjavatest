@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class connexion extends javax.swing.JFrame {
     
-
+    
     /**
      * Creates new form connexion
      */
@@ -30,6 +30,8 @@ public class connexion extends javax.swing.JFrame {
         initComponents();
         // Initialize the list of employes
         employes = new ArrayList<>();
+        
+        setLocationRelativeTo(null);
         
     }
      

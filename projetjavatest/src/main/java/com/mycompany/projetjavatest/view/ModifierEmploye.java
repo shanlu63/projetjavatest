@@ -26,12 +26,12 @@ public class ModifierEmploye extends javax.swing.JFrame {
     public ModifierEmploye(String job) {
         this.job=job;
         initComponents();
+         setLocationRelativeTo(null);
         fill_menu();
     }
 
     private ModifierEmploye() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+         }
     
      public List<String> getIdsAndNames(String fileName) {
         List<String> IdsAndNames = new ArrayList<>();

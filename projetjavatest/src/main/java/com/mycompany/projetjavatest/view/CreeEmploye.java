@@ -31,6 +31,7 @@ String job;
     public CreeEmploye(String job) throws Exception {
         this.job=job;
         initComponents();
+         setLocationRelativeTo(null);
       ListEmplois = getListEmploye("emplois.txt");
     }
 

@@ -69,10 +69,13 @@ public class GestionService1 extends javax.swing.JFrame {
         this.job=job;
           // Initialize tableList first
         TableDAO tableDAO = new TableDAO("table.txt"); // Créer une instance de TableDAO avec le chemin du fichier
+       
         tableList = tableDAO.initializeTableList();
         CommandDAO commandDAO = new CommandDAO();
 
         initComponents();
+        
+         setLocationRelativeTo(null);
          jPanelPlan.setVisible(true);//afficher le panel de plan de menu de restaurant
         jPanelStatusdetable.setVisible(false);//le panel de status de table est invisible
      

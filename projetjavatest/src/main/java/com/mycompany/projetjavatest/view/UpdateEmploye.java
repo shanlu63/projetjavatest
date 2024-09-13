@@ -35,6 +35,7 @@ public class UpdateEmploye extends javax.swing.JFrame {
     this.id = id;
     this.jobt=job;// Vous assignez l'id passé en paramètre
     initComponents(); // Initialisation de l'interface utilisateur
+     setLocationRelativeTo(null);
     
     // Remplacer l'exception ou l'initialisation problématique par quelque chose de concret
     List<Emplois> ListEmplois = getListEmploye("emplois.txt"); // Assurez-vous que ce fichier existe

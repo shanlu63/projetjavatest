@@ -31,6 +31,7 @@ public class ModificationMenue extends javax.swing.JFrame {
         this.idMenu = id;
         this.nomMenu = name;
         initComponents();
+         setLocationRelativeTo(null);
 
         List<Menu> listMenu = loadMenuData("menu.txt");
 
