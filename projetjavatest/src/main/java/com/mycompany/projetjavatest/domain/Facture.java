@@ -93,14 +93,29 @@ public class Facture { // Define the file name
 
     @Override
     public String toString() {
+        
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy-HH:mm");
-        return  "Facture numéro:"+idFacture + ";\n" +
-               "Prix HT en total :" + String.format("%.2f", totalPrixHT) + " € ;\n" + 
-               "Prix TVA :" +String.format("%.2f", totalTVA) + " € ;\n" +
-               "Prix TTC en total :" +String.format("%.2f", totalPrixTTC) + " € ;\n" +
-               "Date :" +dateFormat.format(date) + ";\n" +
-               "Payement méthod :" + paymentMethod;
+            return "Facture numéro:" + idFacture + ";"
+            + "Prix HT en total :" + String.format("%.2f €", totalPrixHT) + ";"
+            + "Prix TVA :" + String.format("%.2f €", totalTVA) + ";"
+            + "Prix TTC en total :" + String.format("%.2f €", totalPrixTTC) + ";"
+            + "Date :" + dateFormat.format(date) + ";"
+            + "Payement méthod :" + paymentMethod;
+       
+   }
+    
+    public String toStringaffling() {
+        
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy-HH:mm");
+        return "Facture numéro: " + idFacture + "\n"
+                + "Prix HT en total : " + String.format("%.2f €", totalPrixHT) + "\n"
+                + "Prix TVA : " + String.format("%.2f €", totalTVA) + "\n"
+                + "Prix TTC en total : " + String.format("%.2f €", totalPrixTTC) + "\n"
+                + "Date : " + dateFormat.format(date) + "\n"
+                + "Payement méthod : " + paymentMethod;
+   
     }
+    
 
 
 }

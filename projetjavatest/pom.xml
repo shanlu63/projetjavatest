@@ -11,5 +11,5 @@
         <maven.compiler.target>11</maven.compiler.target>
         <exec.mainClass>com.mycompany.projetjavatest.Projetjavatest</exec.mainClass>
     </properties>
-    <name>projetjavatest-copytest</name>
+    <name>projetjavatest-1309</name>
 </project>

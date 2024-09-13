@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -144,7 +145,9 @@ public class ModificationMenue extends javax.swing.JFrame {
             StringBuilder line = new StringBuilder();
             line.append(menu.getMenuId()).append(";")
                 .append(menu.getnom()).append(";")
-                .append(String.join("|", menu.getPlat().stream().map(Cuisine::getNom).toList())).append(";")
+                //.append(String.join("|", menu.getPlat().stream().map(Cuisine::getNom).toList())).append(";")
+                   .append(String.join("|", menu.getPlat().stream().map(Cuisine::getNom).collect(Collectors.toList()))).append(";")
+
                 .append(menu.getType()).append(";")
                 .append(String.format("%.2f", menu.getPrix()).replace(",", ".")).append(";")
                 .append(menu.getQuantite());

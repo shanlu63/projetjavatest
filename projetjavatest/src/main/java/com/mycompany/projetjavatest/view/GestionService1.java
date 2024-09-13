@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -55,6 +54,7 @@ public class GestionService1 extends javax.swing.JFrame {
     public float totalToPay;
     private JTextField jTextFieldAmountDue;
     String job;
+    
 
    
     /**
@@ -62,7 +62,9 @@ public class GestionService1 extends javax.swing.JFrame {
      */
     /**
      * Creates new form GestionService1
+     * @param job
      */
+    
     public GestionService1(String job) {
         this.job=job;
           // Initialize tableList first
@@ -83,8 +85,10 @@ public class GestionService1 extends javax.swing.JFrame {
     }
 
     private GestionService1() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -110,7 +114,6 @@ public class GestionService1 extends javax.swing.JFrame {
         jScrollPaneMenu = new javax.swing.JScrollPane();
         jScrollPaneCommand = new javax.swing.JScrollPane();
         jPanelMenudugestion = new javax.swing.JPanel();
-        jButtonQuitter = new javax.swing.JButton();
         jButtonCommender = new javax.swing.JButton();
         jButtonAddtion = new javax.swing.JButton();
         jButtonStatus = new javax.swing.JButton();
@@ -136,7 +139,7 @@ public class GestionService1 extends javax.swing.JFrame {
         jButtonEnespece = new javax.swing.JButton();
         jButtonPayCB = new javax.swing.JButton();
         jButtonFacture = new javax.swing.JButton();
-        jButtonDeconnexion = new javax.swing.JButton();
+        jButtonRetour = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -164,7 +167,7 @@ public class GestionService1 extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(0, 740));
         setSize(new java.awt.Dimension(800, 600));
 
-        jPanelLegende.setBackground(new java.awt.Color(204, 255, 204));
+        jPanelLegende.setBackground(java.awt.SystemColor.control);
 
         jPanel5.setBackground(java.awt.Color.cyan);
 
@@ -286,14 +289,6 @@ public class GestionService1 extends javax.swing.JFrame {
         jPanelMenudugestion.setBackground(new java.awt.Color(204, 255, 255));
         jPanelMenudugestion.setPreferredSize(new java.awt.Dimension(200, 249));
 
-        jButtonQuitter.setText("Quitter");
-        jButtonQuitter.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButtonQuitter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonQuitterActionPerformed(evt);
-            }
-        });
-
         jButtonCommender.setText("Commander");
         jButtonCommender.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButtonCommender.addActionListener(new java.awt.event.ActionListener() {
@@ -335,18 +330,15 @@ public class GestionService1 extends javax.swing.JFrame {
             .addGroup(jPanelMenudugestionLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(jPanelMenudugestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonQuitter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanelMenudugestionLayout.createSequentialGroup()
-                        .addGroup(jPanelMenudugestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonCommender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanelMenudugestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonAddtion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonReservation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(jButtonStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonCommender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelMenudugestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonAddtion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonReservation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMenudugestionLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(111, Short.MAX_VALUE)
                 .addComponent(jLabelMenu)
                 .addGap(112, 112, 112))
         );
@@ -363,12 +355,11 @@ public class GestionService1 extends javax.swing.JFrame {
                 .addGroup(jPanelMenudugestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCommender, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonAddtion, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButtonQuitter, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77))
+                .addGap(128, 128, 128))
         );
 
-        jPanelStatusdetable.setBackground(new java.awt.Color(255, 255, 51));
+        jPanelStatusdetable.setBackground(new java.awt.Color(255, 255, 204));
+        jPanelStatusdetable.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         jPanelStatusdetable.setMaximumSize(new java.awt.Dimension(100, 300));
         jPanelStatusdetable.setMinimumSize(new java.awt.Dimension(100, 300));
         jPanelStatusdetable.setPreferredSize(new java.awt.Dimension(100, 300));
@@ -384,7 +375,7 @@ public class GestionService1 extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanelcommandcomfirm.setBackground(new java.awt.Color(204, 255, 204));
+        jPanelcommandcomfirm.setBackground(new java.awt.Color(255, 255, 204));
 
         jButtonannuler.setText("Annuler Comm.");
         jButtonannuler.addActionListener(new java.awt.event.ActionListener() {
@@ -421,7 +412,7 @@ public class GestionService1 extends javax.swing.JFrame {
                 .addGap(18, 18, 18))
         );
 
-        jPanelstatus.setBackground(new java.awt.Color(255, 153, 153));
+        jPanelstatus.setBackground(new java.awt.Color(255, 255, 153));
         jPanelstatus.setMaximumSize(new java.awt.Dimension(300, 300));
         jPanelstatus.setMinimumSize(new java.awt.Dimension(300, 252));
         jPanelstatus.setPreferredSize(new java.awt.Dimension(300, 252));
@@ -429,7 +420,8 @@ public class GestionService1 extends javax.swing.JFrame {
 
         jLabelIDtable.setText("Reservation :");
 
-        jPanelReservation.setBackground(new java.awt.Color(255, 204, 153));
+        jPanelReservation.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelReservation.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         jPanelReservation.setMaximumSize(new java.awt.Dimension(300, 200));
         jPanelReservation.setMinimumSize(new java.awt.Dimension(300, 200));
 
@@ -450,7 +442,7 @@ public class GestionService1 extends javax.swing.JFrame {
 
         jLabel6.setText("Date et Horaire");
 
-        jButtonValierRDV.setText("ValiderRDV");
+        jButtonValierRDV.setText("Valider RDV");
         jButtonValierRDV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonValierRDVActionPerformed(evt);
@@ -530,7 +522,7 @@ public class GestionService1 extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addGroup(jPanelstatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanelchoixletemp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelReservation, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanelReservation, javax.swing.GroupLayout.PREFERRED_SIZE, 276, Short.MAX_VALUE))
                 .addGap(0, 27, Short.MAX_VALUE))
         );
         jPanelstatusLayout.setVerticalGroup(
@@ -545,7 +537,7 @@ public class GestionService1 extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanelchoixpayement.setBackground(new java.awt.Color(255, 153, 0));
+        jPanelchoixpayement.setBackground(new java.awt.Color(255, 255, 204));
 
         jButtonEnespece.setText("En espèse");
         jButtonEnespece.addActionListener(new java.awt.event.ActionListener() {
@@ -594,10 +586,10 @@ public class GestionService1 extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButtonDeconnexion.setText("Déconnexion");
-        jButtonDeconnexion.addActionListener(new java.awt.event.ActionListener() {
+        jButtonRetour.setText("Retour");
+        jButtonRetour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDeconnexionActionPerformed(evt);
+                jButtonRetourActionPerformed(evt);
             }
         });
 
@@ -622,7 +614,7 @@ public class GestionService1 extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(jButtonDeconnexion, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonRetour, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -630,7 +622,7 @@ public class GestionService1 extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButtonDeconnexion, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonRetour, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPaneCommand, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
@@ -638,8 +630,8 @@ public class GestionService1 extends javax.swing.JFrame {
                             .addComponent(jPanelPlan, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(66, 66, 66)
-                        .addComponent(jPanelMenudugestion, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanelMenudugestion, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54)
                         .addComponent(jPanelStatusdetable, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanelcommandcomfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -654,9 +646,7 @@ public class GestionService1 extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1514, Short.MAX_VALUE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1514, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jPanelLegende, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -700,14 +690,6 @@ public class GestionService1 extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_jButtonStatusActionPerformed
-
-    private void jButtonQuitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuitterActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        choixInterface choixInterface = new choixInterface(job);
-        choixInterface.setVisible(true);//quitter et aller le form de choix d'interface
-       
-    }//GEN-LAST:event_jButtonQuitterActionPerformed
 //---------------fonction de afficher le panel de  reservation ---start
     private void jButtonReservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReservationActionPerformed
         // TODO add your handling code here:
@@ -742,19 +724,20 @@ public class GestionService1 extends javax.swing.JFrame {
     }
 
 //************focntion de afficher le panel de reservation ---fin
-    private void jButtonDeconnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeconnexionActionPerformed
+    private void jButtonRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRetourActionPerformed
         // TODO add your handling code here:
-         this.dispose();//fermer l'application
+        
           
         try {
-            connexion connexion = new connexion();
-            connexion.setVisible(true);//afficher le form connexion
+            choixInterface choixInterface1 = new choixInterface(job);
+            choixInterface1.setVisible(true);
+             this.dispose();//fermer l'application
              
         } catch (Exception ex) {
             Logger.getLogger(GestionService1.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }//GEN-LAST:event_jButtonDeconnexionActionPerformed
+    }//GEN-LAST:event_jButtonRetourActionPerformed
    
     //-----------fin de button deconnexion
     
@@ -1098,7 +1081,7 @@ public class GestionService1 extends javax.swing.JFrame {
                                 totalToPay / 6.0f,    // Total TVA
                                 totalToPay,           // Total TTC
                                 new Date(),           // Current date
-                                "carte bleue"         // Payment method
+                                "En espèse"         // Payment method
                                 );
                                 FactureDAO factureDAO = new FactureDAO();
                                 factureDAO.saveFacture(facture);
@@ -1129,7 +1112,7 @@ public class GestionService1 extends javax.swing.JFrame {
        
         // Display the last Facture in a dialog
         if (lastFacture != null) {
-            String factureDetails = lastFacture.toString();
+            String factureDetails = lastFacture.toStringaffling() ;
             JOptionPane.showMessageDialog(this, "Dernière facture:\n" + factureDetails, "Facture", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "Aucune facture trouvée.", "Facture", JOptionPane.INFORMATION_MESSAGE);
@@ -1289,12 +1272,11 @@ public class GestionService1 extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAddtion;
     private javax.swing.JButton jButtonAnnulerRDV;
     private javax.swing.JButton jButtonCommender;
-    private javax.swing.JButton jButtonDeconnexion;
     private javax.swing.JButton jButtonEnespece;
     private javax.swing.JButton jButtonFacture;
     private javax.swing.JButton jButtonPayCB;
-    private javax.swing.JButton jButtonQuitter;
     private javax.swing.JButton jButtonReservation;
+    private javax.swing.JButton jButtonRetour;
     private javax.swing.JButton jButtonStatus;
     private javax.swing.JButton jButtonValierRDV;
     private javax.swing.JButton jButtonannuler;
