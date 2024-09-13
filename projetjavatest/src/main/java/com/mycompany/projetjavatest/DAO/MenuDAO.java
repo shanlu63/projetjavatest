@@ -63,7 +63,7 @@ public class MenuDAO {
                         List<Cuisine> platList = new ArrayList<>();
                         platList.add(new Cuisine(prix, composants, nom, quantite));
 
-                        menus.add(new Menu(menuId,platList, type, prix, quantite));
+                        menus.add(new Menu(menuId,nom,platList, type, prix, quantite));
                     } catch (ParseException | NumberFormatException e) {
                         System.err.println("Erreur lors du parsing des données: " + e.getMessage());
                     }

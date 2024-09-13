@@ -1,0 +1,10 @@
+1; Salade César; Laitue|Croutons|Parmesan|Poulet; Entrée; 6,99; 100
+2; Poulet Rôti; Poulet|Herbes|Pommes de Terre; Plat Principal; 13,99; 100
+3; Tarte aux Pommes; Pommes|Sucre|Pâte Feuilletée; Dessert; 4,99; 100
+4; Soupe à l'Oignon; Oignons|Bouillon|Fromage|Pain; Entrée; 4,50; 150
+5; Lasagnes; Viande Hachée|Pâtes|Fromage|Sauce Béchamel; Plat Principal; 10,99; 200
+6; Crêpes Suzette; Crêpes|Sauce Oranges|Beurre; Dessert; 8,50; 120
+7; Quiche Lorraine; Lardons|Crème|Oeufs|Pâte Brisée; Plat Principal; 8,00; 80
+8; Carpaccio de Boeuf; Boeuf|Parmesan|Rucola|Citron; Entrée; 7,50; 60
+9; Mousse au Chocolat; Chocolat|Crème|Œufs|Sucre; Dessert; 3,99; 150
+10; Ratatouille; Aubergines|Courgettes|Poivrons|Tomates; Plat Principal; 10,25; 100

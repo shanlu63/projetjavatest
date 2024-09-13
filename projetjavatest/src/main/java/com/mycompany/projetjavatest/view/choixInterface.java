@@ -13,8 +13,15 @@ public class choixInterface extends javax.swing.JFrame {
     /**
      * Creates new form choixInterface
      */
-    public choixInterface() {
+    String job;
+    
+    public choixInterface(String job) {
+        this.job=job;
         initComponents();
+    }
+
+    private choixInterface() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /**
@@ -34,6 +41,11 @@ public class choixInterface extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
         jButton1.setText("Parametrage");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
         jButton2.setText("Gestion service");
@@ -79,10 +91,24 @@ public class choixInterface extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        GestionService1 GestionService1 = new GestionService1();
+        GestionService1 GestionService1 = new GestionService1(job);
         GestionService1.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if(this.job.equals("manager")||this.job.equals("directeur"))
+        {
+        InterfaceParametrage InterfaceParametrage1 = new InterfaceParametrage(job);
+        InterfaceParametrage1.setVisible(true);
+        this.setVisible(false);
+        }
+        else{
+                 javax.swing.JOptionPane.showMessageDialog(this, "Vous n'êtes pas habilité à entrez dans cette interface", "Erreur", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

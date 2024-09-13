@@ -16,24 +16,30 @@ import java.util.Set;
  * @author shan
  */
 public class Emplois {
-    private static Set<String> uniqueEmpIds = new HashSet<>(); // Ensemble pour les identifiants uniques
-
+private static int nextId = 1;
     private int id; // Index unique
     private String empId; // Identifiant pour se connecter
     private String mdp; // Mot de passe pour se connecter
     private String nom; // Nom de l'employé
     private String job; // Manager, serveur ou directeur
-
-    public Emplois(int id, String empId, String mdp, String nom, String job) throws Exception {
-        if (uniqueEmpIds.contains(empId)) {
-            throw new Exception("L'identifiant " + empId + " est déjà utilisé. Veuillez en choisir un autre.");
-        }
+    
+    public Emplois(int id,String empId, String mdp, String nom, String job) throws Exception {
         this.id = id;
-        this.empId = empId;
+        this.empId =empId;
         this.mdp = mdp;
         this.nom = nom;
         this.job = job;
-        uniqueEmpIds.add(empId);
+        nextId = this.id ;
+    }
+
+    public Emplois(String mdp, String nom, String job) throws Exception {
+      nextId++;
+        this.id =nextId ;
+        this.empId = "emp00"+this.id;
+        this.mdp = mdp;
+        this.nom = nom;
+        this.job = job;
+        
     }
 
     // Getters et setters
@@ -44,14 +50,13 @@ public class Emplois {
     public String getJob() { return job; }
 
     public void setId(int id) { this.id = id; }
-    public void setEmpId(String empId) throws Exception {
-        if (uniqueEmpIds.contains(empId)) {
-            throw new Exception("L'identifiant " + empId + " est déjà utilisé. Veuillez en choisir un autre.");
-        }
-        uniqueEmpIds.remove(this.empId);
+    public void setEmpId(String empId){
+        
+     
         this.empId = empId;
-        uniqueEmpIds.add(empId);
+        
     }
+    
     public void setMdp(String mdp) { this.mdp = mdp; }
     public void setNom(String nom) { this.nom = nom; }
     public void setJob(String job) { this.job = job; }

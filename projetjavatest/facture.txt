@@ -6,3 +6,21 @@ Prix TVA :6,74 � ;
 Prix TTC en total :40,41 � ;
 Date :31/08/2024-14:20;
 Payement m�thod :carte bleue
+Facture numéro:202400001;
+Prix HT en total :40,54 € ;
+Prix TVA :8,11 € ;
+Prix TTC en total :48,65 € ;
+Date :31/08/2024-14:38;
+Payement méthod :carte bleue
+Facture numéro:202400001;
+Prix HT en total :65,50 € ;
+Prix TVA :13,10 € ;
+Prix TTC en total :78,60 € ;
+Date :05/09/2024-18:11;
+Payement méthod :carte bleue
+Facture numéro:202400001;
+Prix HT en total :3,67 € ;
+Prix TVA :0,73 € ;
+Prix TTC en total :4,40 € ;
+Date :09/09/2024-16:53;
+Payement méthod :carte bleue

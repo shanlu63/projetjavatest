@@ -122,7 +122,7 @@ public class connexion extends javax.swing.JFrame {
         String idinput = jTextFieldid.getText().trim(); // Saisir ID
         char[] passwordChars = jPasswordFieldMTP1.getPassword();
         String mtpinput = new String(passwordChars);// Saisir mot de passe
-    
+        String job;
        
     
         Emplois employe = emploisevice.getEmploisbyIDandMDP(idinput, mtpinput);
@@ -130,10 +130,11 @@ public class connexion extends javax.swing.JFrame {
         // Vérifier si l'emploi a été trouvé
         if (employe != null) {
             JOptionPane.showMessageDialog(null, "Bienvenue " + employe.getNom());
+            job = employe.getJob();
             // Aller à la page choix de l'interface
-            choixInterface secondPage = new choixInterface();
+            choixInterface secondPage = new choixInterface(job);
             secondPage.setVisible(true);
-
+            
             // Masquer la fenêtre actuelle
             this.setVisible(false);
         } else {

@@ -36,6 +36,17 @@ public class Cuisine {
         this.nom = nom;
         this.quantite = quantite;
     }
+    
+    public Cuisine(String nom) {
+        this.id = nextId++;  // Attribution automatique d'un ID unique
+        this.prix = 0;
+        this.composants = (composants != null) ? composants : new ArrayList<>(); // Initialiser la liste si elle est null
+        this.nom = nom;
+        this.quantite = 0;
+    }
+    
+
+  
 
     // Getters
     public int obtenirid() {

@@ -13,6 +13,7 @@ public class Menu {
    
     private int menuId; // ID du menu pour commander
     private List<Cuisine> plat; // Liste des plats
+    private String nom;
     private String type; // Type de menu
     private float prix; // Prix total du menu
     private int quantite; // Quantité commandée
@@ -22,18 +23,29 @@ public class Menu {
      */
     public Menu() {
     }
-
+private static int nextId = 0;
     /**
      * Constructeur avec paramètres.
-     * 
+     *@param  
      * @param menuId
+     * @param nom
      * @param plat la liste des plats
      * @param type le type de menu
      * @param prix le prix total du menu
      * @param quantite la quantité commandée
      */
-     public Menu(int menuId, List<Cuisine> plat, String type, float prix, int quantite) {
+     public Menu(int menuId,String nom, List<Cuisine> plat, String type, float prix, int quantite) {
         this.menuId = menuId;
+        this.nom=nom;
+        this.plat = new ArrayList<>(plat); // Crée une nouvelle liste pour éviter les modifications externes
+        this.type = type;
+        this.prix = prix;
+        this.quantite = quantite;
+    }
+     
+    public Menu(String nom, List<Cuisine> plat, String type, float prix, int quantite) {
+        this.menuId = nextId++;
+        this.nom=nom;
         this.plat = new ArrayList<>(plat); // Crée une nouvelle liste pour éviter les modifications externes
         this.type = type;
         this.prix = prix;
@@ -43,6 +55,10 @@ public class Menu {
     // Getters
     public int getMenuId() {
         return menuId;
+    }
+    
+    public String getnom() {
+        return nom;
     }
 
     public List<Cuisine> getPlat() {
@@ -80,10 +96,17 @@ public class Menu {
     public void setPrix(float prix) {
         this.prix = prix;
     }
-
+    
+public void setNom(String nom) {
+        this.nom = nom;
+    }
     public void setQuantite(int quantite) {
         this.quantite = quantite;
     }
+    
+    public void setMenuId(int menuId) {
+    this.menuId = menuId;
+}
 
     // toString
     @Override

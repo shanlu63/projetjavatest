@@ -19,7 +19,7 @@ public class Plat extends Cuisine {
     public Plat(float prix, List<String> composants, String nom) {
         super(prix, composants, nom, 1); // Quantité par défaut à 1, ajustez si nécessaire
     }
-
+  
     @Override
     public String toString() {
         // Utilise la méthode toString() de la classe parente pour afficher les détails du plat

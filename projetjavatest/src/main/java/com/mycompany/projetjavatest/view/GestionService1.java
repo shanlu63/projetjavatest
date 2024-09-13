@@ -54,7 +54,7 @@ public class GestionService1 extends javax.swing.JFrame {
     private JPanel commandPanel;
     public float totalToPay;
     private JTextField jTextFieldAmountDue;
-
+    String job;
 
    
     /**
@@ -63,7 +63,8 @@ public class GestionService1 extends javax.swing.JFrame {
     /**
      * Creates new form GestionService1
      */
-    public GestionService1() {
+    public GestionService1(String job) {
+        this.job=job;
           // Initialize tableList first
         TableDAO tableDAO = new TableDAO("table.txt"); // Créer une instance de TableDAO avec le chemin du fichier
         tableList = tableDAO.initializeTableList();
@@ -79,6 +80,10 @@ public class GestionService1 extends javax.swing.JFrame {
          jScrollPaneCommand.setVisible(false);//cacher la soroll panel de command
          jPanelchoixpayement.setVisible(false);//cacher
         
+    }
+
+    private GestionService1() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /**
@@ -699,7 +704,7 @@ public class GestionService1 extends javax.swing.JFrame {
     private void jButtonQuitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuitterActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        choixInterface choixInterface = new choixInterface();
+        choixInterface choixInterface = new choixInterface(job);
         choixInterface.setVisible(true);//quitter et aller le form de choix d'interface
        
     }//GEN-LAST:event_jButtonQuitterActionPerformed
